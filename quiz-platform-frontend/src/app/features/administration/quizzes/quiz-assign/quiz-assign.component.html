@@ -1,0 +1,513 @@
+<!-- Title-->
+<div class="title">
+  <!-- Title of the Quiz -->
+  <h3>{{quiz.title}}
+    <button type="button" id="update-quiz-btn" class="btn btn-primary btn-add btn-right-save" data-toggle="modal"
+      data-target="#" title="Enregistrer les modifications" (click)="updateQuiz()">
+      <!-- Update Quiz Button -->
+      <i class="fa fa-check"></i> {{'Enregistrer' | translate}}
+    </button> </h3>
+</div>
+<!-- Content -->
+<div class="content">
+  <!-- Details Quiz Section (General infromations) -->
+  <div id="accordion">
+    <div class="card">
+      <div class="card-header" id="info">
+        <div class="row">
+          <div class="col-11">
+            <h5 class="mb-0">
+              <button class="btn btn-link panel-title" data-toggle="collapse" data-target="#collapseInfo" aria-expanded="true"
+                aria-controls="collapseOne">
+                <i class="fa fa-chevron-down" aria-hidden="true"></i>
+              </button>
+              <button class="btn btn-link panel-title" id="update-general-info-collapse" data-toggle="collapse"
+                data-target="#collapseInfo" aria-expanded="true" aria-controls="collapseOne">
+                {{'Informations générales' | translate}}
+              </button>
+            </h5>
+          </div>
+          <div class="col-1">
+            <!-- Update General Information Button -->
+            <button type="button" id="update-general-info-btn" class="btn btn-info btn-add btn-right" data-toggle="modal"
+              data-target="#editgeneralinformationmodal" title="Modifier les informations générales de ce QCM" (click)="openEditGeneralInfoModal(quiz)">
+              <i class="fa fa-edit"></i> {{'Modifier' | translate}}
+            </button>
+          </div>
+        </div>
+      </div>
+      <div id="collapseInfo" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-5">
+              <!-- Title section -->
+              <div class="notice notice-info">
+                <strong>{{'Titre:'| translate}}</strong> {{quiz.title}}
+              </div>
+              <!-- Description section -->
+              <div class="notice notice-info ">
+                <strong>{{'Description:' | translate}}</strong> {{quiz.description}}
+              </div>
+              <!-- Duration section -->
+              <div class="notice notice-info ">
+                <strong>{{'Durée:' | translate}}</strong> {{quiz.duration}} minutes
+              </div>
+            </div>
+            <div class="col-3">
+              <!-- Technology section -->
+              <div class="notice notice-info ">
+                <strong>{{'Technologie:' | translate}}</strong> {{quiz.technology.title}}
+              </div>
+              <!-- Degree section -->
+              <div class="notice notice-info ">
+                <strong>{{'Niveau:' | translate}}</strong> {{quiz.degree.title}}
+              </div>
+            </div>
+            <!-- Creation infromation section -->
+            <div class="col-4">
+              <div class="card" tyle="width: 18rem; ">
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item"><label for="titre"> <strong>{{'Crée par' | translate}}:&nbsp;</strong></label>
+                    {{quiz.createdBy.firstName}}
+                    {{quiz.createdBy.lastName}} <br>
+                    <label for="titre"><strong>{{'Date de création:' | translate}}&nbsp;</strong></label>
+                    {{quiz.createdAt}}<br>
+                    <label for="titre"><strong>{{'Dernière date de modification:' | translate}}&nbsp;</strong></label>
+                    {{quiz.updatedAt}}
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br>
+
+  <!--Questions Section (All/ in Quiz)-->
+  <div class="row">
+    <!--List of all question-->
+    <div class="col-6">
+      <div class="card">
+        <div class="card-header" id="questions">
+          <div class="row">
+            <div class="col-11">
+              <h5 class="mb-0">
+                <button class="btn btn-link panel-title">
+                  {{'Liste des questions à choisir' | translate}}
+                </button>
+              </h5>
+            </div>
+            <div class="col-1">
+              <!-- Add new Question Button -->
+              <button id="add-question-quiz-btn" class="btn btn-info btn-add btn-right" data-toggle="modal" title="Ajouter une nouvelle question"
+                data-target="#addQuestionModal">
+                <i class="fa fa-plus"></i> {{'Nouvelle question' | translate}}</button>
+            </div>
+          </div>
+        </div>
+        <!-- Number of elements select form -->
+        <div class="card-body scroll">
+          <div class="row">
+            <!-- Number of elements select form -->
+            <div class=" col-md-6">
+              <div class="btn-group">
+              </div>
+            </div>
+            <!-- Search form -->
+            <div class=" col-md-6 text-right">
+              <div class="input-group search">
+                <input type="text" id="search-question" class="form-control search" placeholder="{{'Recherche...' | translate}}"
+                  [(ngModel)]="searchInput" (input)="onSearch($event.target.value)">
+              </div>
+            </div>
+          </div>
+          <!--All Question DataTables -->
+          <div class="table-responsive-lg">
+            <table class="table table-bordered table-striped">
+              <thead class="row-border hover">
+                <tr>
+                  <th style="width: 60%;">{{'Question' | translate}}</th>
+                  <th style="width: 20%;">{{'Créateur' | translate}}</th>
+                  <th style="width: 20%;">{{'Actions' | translate}}</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let u of listQuestions | paginate: { itemsPerPage: item, currentPage: p, totalItems: total }">
+                  <td [innerHtml]="u.description">{{u.description}}</td>
+                  <td>{{u.createdBy.firstName}} {{u.createdBy.lastName}}</td>
+                  <td>
+                    <!-- Detail Question open modal Button-->
+                    <span data-toggle="modal" data-target="#detailsmodal" (click)="openDetailsModal(u)">
+                      <button data-toggle="tooltip" data-placement="top" title="Détails" type="button" class="icon-button">
+                        <i class="fa fa-eye" aria-hidden="true"></i>
+                      </button>
+                    </span>
+                    <!-- Clone Question open modal Button-->
+                    <span data-toggle="modal" data-target="#clonemodal" (click)="openCloneModal(u)">
+                      <button data-toggle="tooltip" data-placement="top" title="Cloner cette question" type="button"
+                        class="icon-button">
+                        <i class="fa fa-clone" aria-hidden="true"></i>
+                      </button>
+                    </span>
+                    <!-- Add Question to Quiz open modal Button (Mark) -->
+                    <span data-toggle="modal" data-target="#addMarkModal" (click)="openAddMarkModal(u)">
+                      <button data-toggle="tooltip" data-placement="top" title="Ajouter au QCM" type="button" class="icon-button">
+                        <i class="fa fa-plus" aria-hidden="true"></i>
+                      </button>
+                    </span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <!-- No data in table message-->
+            <div *ngIf="listQuizzes?.length==0">
+              <div class="nodata-box">
+                <div class="nodata-text" id="no-data-available">{{'Aucune donnée trouvée.' | translate}}</div>
+              </div>
+            </div>
+            <!-- Pagination -->
+            <div class="clearfix">
+              <div class="hint-text">Total: <b>{{total}}</b> éléments</div>
+              <div class="pagination justify-content-end">
+                <nav class="Page navigation example">
+                  <pagination-controls (pageChange)="p=$event" (click)="onSelect(p)" previousLabel="{{'Précédente' | translate}}"
+                    nextLabel="{{'Suivante' | translate}}"></pagination-controls>
+                </nav>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--List of question in the quiz-->
+    <div class="col-6">
+      <div class="card">
+        <div class="card-header" id="qcm">
+          <div class="row">
+            <div class="col-11">
+              <h5 class="mb-0">
+                <button class="btn btn-link panel-title">
+                  {{'Questions affectées à ce QCM' | translate}}
+                </button>
+              </h5>
+            </div>
+            <div class="col-1">
+              <!-- Add random question to the quiz Button -->
+              <button type="button" id="generate-quiz-btn" class="btn btn-info btn-add btn-right" data-toggle="modal"
+                data-target="#addNumberModal" title="Générer aléatoirement des questions dans ce QCM"><i class="fa fa-cog"
+                  aria-hidden="true"></i>
+                {{'Générer' | translate}}</button>
+            </div>
+          </div>
+        </div>
+        <!--All Question in the Quiz List -->
+        <div class="card-body scroll">
+          <ol class="questions-card">
+            <ng-template ngFor let-quizQuestion [ngForOf]="listQuizQuestion" let-length="index">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-7">
+                    <br>
+                    <h5 style="font-weight: bold; ">
+                      <li [innerHtml]="quizQuestion.question.description">{{ quizQuestion.question.description }}</li>
+                    </h5>
+                    <div>
+                      <ng-template ngFor let-p [ngForOf]="quizQuestion.question.propositions" let-length="index">
+                        <div class="card-text">
+                          <ul>
+                            <li> {{p.description}}</li>
+                          </ul>
+                        </div>
+                      </ng-template>
+                    </div>
+                  </div>
+                  <div class="col-3">
+                    <br>
+                    <!--Update Mark Section -->
+                    <h5 style="text-align:right;font-weight: bold;" *ngIf="!quizQuestion.editMode" [innerHtml]="quizQuestion.mark">({{quizQuestion.mark}}
+                      {{'points' | translate}})</h5>
+                    <form *ngIf="quizQuestion.editMode" #UpdateMarkForm="ngForm">
+                      <div class="input-group mb-3">
+                        <input type="number" id="mark-update" class="form-control" *ngIf="quizQuestion.editMode" class="form-control"
+                          name="mark" [(ngModel)]="quizQuestion.mark" required>
+                        <!--Update Mark Button -->
+                        <button type="button" id="submit-update-mark" class="btn btn-outline-secondary" data-toggle="modal"
+                          (click)="editMarkQuizQuestionToEdit(quizQuestion)" [disabled]="!UpdateMarkForm.valid || !quizQuestion.mark">
+                          <i class="fa fa-check"></i>
+                        </button>
+                      </div>
+                    </form>
+                  </div>
+                  <div class="col-1">
+                    <br>
+                    <button id="open-mark-update" type="button" class="icon-button" (click)="quizQuestion.editMode=true"
+                      data-toggle="tooltip">
+                      <i class="fa fa-pencil fa-lg" aria-hidden="true"></i>
+                    </button>
+                  </div>
+                  <!--Delete Question from the Quiz Button -->
+                  <div class="col-1">
+                    <button type="button" class="icon-button" (click)="removeAffectedQuestion(quizQuestion)"
+                      data-toggle="tooltip" title="Retirer de la liste" data-placement="top">
+                      <i class="fa fa-times" aria-hidden="true"></i>
+                    </button>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-11">
+                    <hr>
+                  </div>
+                  <div class="col-1"></div>
+                </div>
+              </div>
+            </ng-template>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!--Add mark modal-->
+  <app-quiz-add-mark [quizQuestion]="quizQuestion" (addQuestionEvent)="addQuestion($event)"></app-quiz-add-mark>
+  <!-- Modal question details -->
+  <app-question-detail [questionDetails]="detailQuestion"></app-question-detail>
+
+  <!-- Modal edit of general informations of quiz -->
+  <div class="modal fade" id="editgeneralinformationmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">{{'Modifier les informations générales' | translate}}</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form #updateQuizForm="ngForm">
+            <!--Title field-->
+            <div class="form-group">
+              <label for="title quiz" class="required">{{'Titre' | translate}}</label>
+              <input type="text" class="form-control" id="title-general-info" name="title" [(ngModel)]="quizToEdit.title"
+                required>
+            </div>
+            <!--Description field-->
+            <div class="form-group">
+              <label for="description">{{'Description' | translate}}</label>
+              <input type="text" class="form-control" id="description-general-info" name="description" [(ngModel)]="quizToEdit.description">
+            </div>
+            <!--Duration field-->
+            <div class="form-group">
+              <label for="duration" class="required">{{'Durée(minutes)' | translate}}</label>
+              <input type="number" min="10" class="form-control" id="duration-general-info" name="duration" placeholder="10"
+                [(ngModel)]="quizToEdit.duration" required>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <!-- Close button -->
+          <button type="button" id="exit-update-general-info" class="btn btn-secondary" data-dismiss="modal">{{'Fermer'
+            | translate}}</button>
+          &nbsp;
+          <!-- Update button -->
+          <button type="button" id="submit-update-general-info" class="btn btn-primary" data-dismiss="modal" (click)="updateGeneralInfoQuiz()"
+            [disabled]="!updateQuizForm.valid">{{'Modifier' | translate}}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--End Modal edit of general informations of quiz -->
+
+
+
+  <!-- Modal add Number of questions -->
+  <div class="modal fade" id="addNumberModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">{{'Ajout automatique des questions' | translate}}</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form #autoAssignForm="ngForm">
+            <!-- Number of questions field -->
+            <div class="form-group">
+              <label for="number">{{'Nombre de questions:' | translate}}</label>
+              <input type="number" class="form-control" id="number-generate" name="number" [(ngModel)]="number"
+                required>
+            </div>
+            <!-- Mark of the questions button -->
+            <div class="form-group">
+              <label for="number">{{'Note:' | translate}}</label>
+              <input type="number" class="form-control" id="mark-generate" name="mark" [(ngModel)]="mark" required>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <!-- Close button -->
+          <button type="button" id="exit-generate-quiz" class="btn btn-secondary" data-dismiss="modal">{{'Fermer' |
+            translate}}</button>
+          &nbsp;
+          <!-- Add button -->
+          <button type="button" id="submit-generate-quiz" class="btn btn-primary" data-dismiss="modal" (click)="generateQuizz(number,mark)"
+            [disabled]="!autoAssignForm.valid || !mark">{{'Enregistrer' | translate}}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- End Modal add Number of questions -->
+
+
+
+  <!-- Add Question Modal -->
+  <div class="modal fade" id="addQuestionModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">{{'Ajouter une question' | translate}}</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="emptyObject()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form #createQuestionForm="ngForm">
+            <!-- Description field -->
+            <div class="form-group">
+              <label for="description" class="required">{{'Description:' | translate}}</label>
+              <!-- Descritption warning -->
+              <div class="alert alert-warning">
+                <div align-text="center" translate>Dans le cas de l'ajout d'une image, il faut écrire la question,
+                  retourner à la
+                  ligne puis l'ajouter.</div>
+              </div>
+              <p-editor id="decription-add-question" [(ngModel)]="questionToAdd.description" name="description" [style]="{'height':'220px'}">
+              </p-editor>
+            </div>
+            <!-- Mark field -->
+            <div class="form-group">
+              <label for="title" class="required">{{'Note:' | translate}}</label>
+              <input type="number" id="mark-add-question" min="0.25" class="form-control" name="mark" [(ngModel)]="mark"
+                required>
+            </div>
+            <!-- Technology field -->
+            <div class="form-group">
+              <label for="title">{{'Technologie:' | translate}}</label>
+              {{quiz.technology.title}}
+            </div>
+            <!-- Degree field -->
+            <div class="form-group">
+              <label for="title">{{'Niveau:' | translate}} </label>
+              {{quiz.degree.title}}
+            </div>
+            <div>
+              <!-- Visibility field -->
+              <div class="form-check">
+                <input type="checkbox" class="form-check-input active" id="visibility" name="visibility" [(ngModel)]="visibilityValue"
+                  (change)="checkVisibility()" checked>
+                <label class="form-check-label" for="exampleCheck1">{{'Visible par tous les utilisateurs' | translate}}</label>
+              </div>
+              <br>
+              <!-- Proposition field -->
+              <form #createPropositionForm="ngForm">
+                <div class="form-group">
+                  <label for="Propositions" class="required">{{'Propositions:' | translate}}</label>
+                  <!-- Number of proposition alert -->
+                  <div class="alert alert-danger" *ngIf="questionToAdd.propositions.length < 2" role="alert">
+                    <div align-text="center">{{'Il faut ajouter plus que deux propositions !' | translate}}</div>
+                  </div>
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <div class="input-group-text">
+                        <input type="checkbox" aria-label="Checkbox for following text input" id="valid" name="valid"
+                          [(ngModel)]="proposition.valid">
+                      </div>
+                    </div>
+                    <textarea id="proposition-add" type="textarea" class="form-control" name="description" [(ngModel)]="proposition.description"
+                      required></textarea>
+                    &nbsp;
+                    <!-- Add Porpostion Button -->
+                    <button id="add-proposition-btn" type="button" class="btn btn-secondary" data-toggle="modal"
+                      [disabled]="!createPropositionForm.valid" (click)="addProposition(proposition.title,proposition.description,proposition.valid)">
+                      <i class="fa fa-plus"></i>
+                    </button>
+                  </div>
+                  <div class="data">
+                    <br>
+                    <ul class="list-unstyled">
+                      <li *ngFor="let proposition of questionToAdd.propositions">
+                        <div class="row">
+                          <div class="col-1">
+                            <td *ngIf="proposition.valid === true"> <i class="fa fa-check-square-o" aria-hidden="true"
+                                [ngStyle]="{'color':'green'}"></i></td>
+                            <td *ngIf="proposition.valid === false"> <i class="fa fa-square-o" aria-hidden="false"
+                                [ngStyle]="{'color':'red'}"></i></td>
+                          </div>
+                          <div class="col-9">
+                            <td><span *ngIf="!proposition.editMode" id="description" name="description">{{proposition.description}}</span></td>
+                            <form *ngIf="proposition.editMode">
+                              <div class="input-group mb-3">
+
+                                <div class="input-group-prepend">
+                                  <div class="input-group-text">
+                                    <input type="checkbox" aria-label="Checkbox for following text input" id="valid"
+                                      name="valid" [(ngModel)]="proposition.valid">
+                                  </div>
+                                </div>
+                                <input type="text" class="form-control" id="description" name="description" *ngIf="proposition.editMode"
+                                  [(ngModel)]="proposition.description">
+                                &nbsp;
+                                <!-- Edit Porpostion Button -->
+                                <button type="button" class="btn btn-outline-secondary" data-toggle="modal" (click)="editPropositionAddQuestion(proposition)">
+                                  <i class="fa fa-check"></i>
+                                </button>
+                              </div>
+                            </form>
+                          </div>
+                          <div class="col-2">
+                            <td><button type="button" class="icon-button" (click)="proposition.editMode=true"
+                                data-toggle="tooltip">
+                                <i class="fa fa-pencil fa-lg" aria-hidden="true"></i>
+                              </button>
+                            </td>
+                            <!-- Delete Porpostion Button -->
+                            <td><button type="button" class="icon-button" (click)="deletePropositionsAddQuestion(proposition)"
+                                data-toggle="tooltip">
+                                <i class="fa fa-times fa-lg" aria-hidden="true" [ngStyle]="{'color':'red'}"></i>
+                              </button>
+                            </td>
+                          </div>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <!-- Close Button -->
+          <button id="exit-add-question-quiz" class="btn btn-secondary" data-dismiss="modal" (click)="emptyObject()">{{'Fermer'
+            | translate}}</button>
+          &nbsp;
+          <!-- Add button Button -->
+          <button id="submit-add-question-quiz" class="btn btn-primary " data-dismiss="modal" (click)="createQuestions()"
+            [disabled]="!createQuestionForm.valid || !mark">{{'Enregistrer' | translate}}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--End add question modal-->
+  <!-- Clone Modal -->
+  <app-question-clone [questionToClone]="questionToClone" (cloneQuestionEvent)="cloneQuestion($event)">
+  </app-question-clone>
+  <!--End clone modal -->
+</div>

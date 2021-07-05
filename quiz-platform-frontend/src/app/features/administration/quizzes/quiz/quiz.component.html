@@ -1,0 +1,73 @@
+<!-- Title-->
+<div class="title">
+    <div class="row">
+        <div class="col-lg-6">
+            <h3>{{'Gestion des QCM' | translate}}</h3>
+        </div>
+        <!-- Add Quiz Button -->
+        <div class="col-lg-6 text-right">
+            <button type="button" id="add-quiz-btn" class="btn btn-primary btn-add" title="Ajouter un nouveau QCM"
+                data-toggle="modal" data-target="#addModal">
+                <i class="fa fa-plus-circle fa-lg"></i> {{'Nouveau QCM' | translate }}
+            </button>
+        </div>
+    </div>
+</div>
+<!-- Content-->
+<div class="content">
+    <!-- Quizzes Table -->
+    <div class="row" class="col-lg-12">
+        <div class="card z-depth-3">
+            <div class="col-lg-12 text-right" *ngIf="listView">
+                <a class="align-self-center btn btn-light active" aria-current="page" id="tooltipShowList" (click)="changeView()"
+                    title="Modifier le type de la liste"><i class="fa-fw fa fa-bars"></i></a>
+                <a class="align-self-center btn btn-light" aria-current="page" id="tooltipShowGrid" (click)="changeView()"
+                    title="Modifier le type de la liste"><i class="fa-fw fa fa-th-large"></i></a>
+            </div>
+            <div class="col-lg-12 text-right" *ngIf="!listView">
+                <a class="align-self-center btn btn-light " aria-current="page" id="tooltipShowList" (click)="changeView()"
+                    title="Modifier le type de la list"><i class="fa-fw fa fa-bars"></i></a>
+                <a class="align-self-center btn btn-light active" aria-current="page" id="tooltipShowGrid" (click)="changeView()"
+                    title="Modifier le type de la list"><i class="fa-fw fa fa-th-large"></i></a>
+            </div>
+            <div class="card-body">
+                <ul class="nav nav-pills nav-pills-primary nav-justified">
+                    <li class="nav-item">
+                        <a href="javascript:void();" id="all-quiz-menu" data-target="#allQCM" data-toggle="pill" class="nav-link active show"><i
+                                class="icon-user"></i> <span class="hidden-xs">{{'Toutes les
+                                QCM' | translate}}</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="javascript:void();" id="my-quiz-menu" data-target="#myQCM" data-toggle="pill" class="nav-link"><i
+                                class="icon-envelope-open"></i>
+                            <span class="hidden-xs">{{'Mes QCM' | translate}}</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="javascript:void();" id="favorit-quiz-menu" data-target="#favoris" data-toggle="pill"
+                            class="nav-link"><i class="icon-note"></i>
+                            <span class="hidden-xs">{{'Favoris' | translate}}</span></a>
+                    </li>
+                </ul>
+                <div class="tab-content p-3">
+                    <!--Quizzes list-->
+                    <div class="tab-pane active show" id="allQCM">
+                        <app-quiz-list (redirect)="quizDetails=$event" [listView]="listView" (reloadEvent)="myQuizzesList.reloadData()"
+                            #allQuizzesList></app-quiz-list>
+                    </div>
+                    <!--My Quizzes list-->
+                    <div class="tab-pane" id="myQCM">
+                        <app-quiz-list-by-user (redirect)="quizDetails=$event" [listView]="listView" (reloadEvent)="allQuizzesList.reloadData()"
+                            #myQuizzesList></app-quiz-list-by-user>
+                    </div>
+                    <!--Favorit Quizzes list -->
+                    <div class="tab-pane" id="favoris">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Add Quiz Modal -->
+    <app-quiz-add (reloadEvent)="allQuizzesList.reloadData()" (reloadEvent)="myQuizzesList.reloadData()"></app-quiz-add>
+    <!-- Detail Quiz Modal -->
+    <app-quiz-detail [quizDetails]="quizDetails"></app-quiz-detail>
+</div>

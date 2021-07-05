@@ -1,0 +1,135 @@
+<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{'Ajouter une question' | translate}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="emptyObject()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form #createQuestionForm="ngForm">
+          <!-- Description field -->
+          <div class="form-group">
+            <label for="description" class="required">{{'Description' | translate}}</label>
+            <!-- Descritption warning -->
+            <div class="alert alert-warning">
+              <!-- <div align-text="center">{{'Dans le cas de l'ajout d'une image, il faut écrire la question,
+                retourner à la
+                ligne puis l'ajouter.' | translate}} </div> -->
+            </div>
+            <p-editor [(ngModel)]="questionToAdd.description" name="description" [style]="{'height':'220px'}">
+            </p-editor>
+          </div>
+          <!-- Technology field -->
+          <div class="form-group">
+            <label for="technology" class="required">{{'Technologie' | translate}}</label>
+            <select id="technology-add" class="form-control" name="Technology" [(ngModel)]="questionToAdd.technology.id"
+              required>
+              <option *ngFor="let Technology of listTechnologies" [ngValue]="Technology.id">{{Technology.title}}
+              </option>
+            </select>
+          </div>
+          <!-- Degree field -->
+          <div class="form-group">
+            <label for="title" class="required">{{'Niveau' | translate}}</label>
+            <select class="form-control" id="degree-add" name="degree" [(ngModel)]="questionToAdd.degree.id" required>
+              <option *ngFor="let degree of listDegrees" [ngValue]="degree.id">{{degree.title}}</option>
+            </select>
+          </div>
+          <!-- Visibility field -->
+          <div class="form-check">
+            <input type="checkbox" class="form-check-input active" id="visibility" name="visibility" [(ngModel)]="visibilityValue"
+              (change)="checkVisibility()" checked>
+            <label class="form-check-label" for="exampleCheck1">{{'Visible par tous les utilisateurs' | translate}}</label>
+          </div><br>
+          <div>
+            <!-- Propostion form -->
+            <form #createPropositionForm="ngForm">
+              <div class="form-group">
+                <label for="Propositions" class="required">{{'Propositions' | translate}}</label>
+                <!-- Number of proposition alert -->
+                <div class="alert alert-danger" *ngIf="questionToAdd.propositions.length < 2" role="alert">
+                  <div align-text="center">{{'Il faut ajouter plus que deux propositions !' | translate}} </div>
+                </div>
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <div class="input-group-text">
+                      <!-- Proposition validity field field -->
+                      <input type="checkbox" aria-label="Checkbox for following text input" id="valid" name="valid"
+                        [(ngModel)]="propositionToAdd.valid">
+                    </div>
+                  </div>
+                  <!-- Proposition descriptiont field -->
+                  <textarea id="proposition-add" type="textarea" class="form-control" name="description" [(ngModel)]="propositionToAdd.description"
+                    required></textarea>
+                  &nbsp;
+                  <!-- Add proposition button -->
+                  <button id="add-proposition-btn" type="button" class="btn btn-secondary" data-toggle="modal"
+                    [disabled]="!createPropositionForm.valid" (click)="addProposition(propositionToAdd.title,propositionToAdd.description,propositionToAdd.valid)">
+                    <i class="fa fa-plus"></i>
+                  </button>
+                </div>
+                <!-- Proposition list section -->
+                <div class="data">
+                  <br>
+                  <ul class="list-unstyled">
+                    <li *ngFor="let proposition of questionToAdd.propositions">
+                      <div class="row">
+                        <div class="col-1">
+                          <td *ngIf="proposition.valid === true"> <i class="fa fa-check-square-o" aria-hidden="true"
+                              [ngStyle]="{'color':'green'}"></i></td>
+                          <td *ngIf="proposition.valid === false"> <i class="fa fa-square-o" aria-hidden="false"
+                              [ngStyle]="{'color':'red'}"></i></td>
+                        </div>
+                        <div class="col-9">
+                          <td><span *ngIf="!proposition.editMode" id="description" name="description">{{proposition.description}}</span></td>
+                          <form *ngIf="proposition.editMode">
+                            <div class="input-group mb-3">
+                              <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                  <input type="checkbox" aria-label="Checkbox for following text input" id="valid" name="valid"
+                                    [(ngModel)]="proposition.valid">
+                                </div>
+                              </div>
+                              <input type="text" class="form-control" id="description" name="description" *ngIf="proposition.editMode"
+                                [(ngModel)]="proposition.description">
+                              &nbsp;
+                              <button type="button" class="btn btn-outline-secondary" data-toggle="modal" (click)="editProposition(proposition)">
+                                <i class="fa fa-check"></i>
+                              </button>
+                            </div>
+                          </form>
+                        </div>
+                        <div class="col-2">
+                          <td><button type="button" class="icon-button" (click)="proposition.editMode=true" data-toggle="tooltip">
+                              <i class="fa fa-pencil fa-lg" aria-hidden="true"></i>
+                            </button>
+                          </td>
+                          <td><button type="button" class="icon-button" (click)="deleteProposition(proposition)"
+                              data-toggle="tooltip">
+                              <i class="fa fa-times fa-lg" aria-hidden="true" [ngStyle]="{'color':'red'}"></i>
+                            </button>
+                          </td>
+                        </div>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </form>
+          </div>
+        </form>
+      </div>
+      <!-- Close button -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="emptyObject()">{{'Fermer' |
+          translate}}</button>
+        &nbsp;
+        <!-- Add button -->
+        <button id="submit-add-question" type="button" class="btn btn-primary " data-dismiss="modal" (click)="createQuestions()"
+          [disabled]="!createQuestionForm.valid">{{'Enregistrer' | translate}}</button>
+      </div>
+    </div>
+  </div>
+</div>

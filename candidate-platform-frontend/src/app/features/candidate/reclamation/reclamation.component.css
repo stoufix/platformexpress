@@ -1,0 +1,53 @@
+/*CSS Body*/
+.col-lg-12 {
+  padding: 15px;
+}
+
+
+.btn-pink {
+  background-color: #FF4081;
+  color: white;
+}
+.image-timer {
+  padding-top: 20px;
+}
+
+li:hover {
+  cursor: pointer;
+  background-color:#4285F4;
+ }
+ 
+/* to remove the . from the lsit*/
+ul { 
+  list-style-type: none; 
+}
+  label {
+    font-weight: bold;
+  }
+  
+  label.required:after{
+    content:"*";
+    color:red;
+  }
+  
+  .ng-valid[required], .ng-valid.required  {
+    border-left: 5px solid #42A948; /* green */
+  }
+  
+  .ng-invalid:not(form)  {
+    border-left: 5px solid #a94442; /* red */
+  }
+  
+/* Send buttonn*/
+.btn-add {
+  margin-left: 15px;
+  margin-bottom: 30px;
+  border-radius:23px;
+  background: #0664CB;
+  color: white;
+}
+
+textarea {
+  height: 150px;
+}
+

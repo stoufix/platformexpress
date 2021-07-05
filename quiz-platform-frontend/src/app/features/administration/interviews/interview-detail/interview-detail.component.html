@@ -1,0 +1,61 @@
+<div class="title">
+    <h3 translate>Détail de l'entretien</h3>
+</div>
+<div class="content">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="card card-custom bg-white border-white border-0">
+                    <div class="card-custom-img"></div>
+                    <div class="card-custom-avatar">
+                        <img class="img-fluid" src="../../../../../assets/images/candidate-logo.png" alt="Avatar" />
+                    </div>
+                    <div class="card-body" style="overflow-y: auto">
+                        <h4 class="card-title">Candidat: {{onlineInterview.application.candidate.firstName}} {{onlineInterview.application.candidate.lastName}}
+                        </h4>
+                        <br>
+                        <h6 class="card-text"><strong><i class="fa fa-calendar"></i>{{'Créé à:' | translate}}</strong>
+                            {{onlineInterview.createdAt}}</h6>
+                        <br>
+                        <h6 class="card-text"><strong><i class="fa fa-info-circle"></i> {{'Statut:' | translate}}</strong>
+                            {{onlineInterview.status}}</h6>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-1">
+            </div>
+            <div class="col-lg-7">
+                <div class="card">
+                    <div class="card-body text-center rounded-top bg-dark">
+                        <h5 class="mb-1 text-white">{{'QCM affecté(s)' | translate}}</h5>
+                        <h6 class="text-light">{{onlineInterview.application.candidate?.profil}}</h6>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-group shadow-none" *ngFor="let assignQuiz of onlineInterview.assignedQuizzes">
+                            <li class="list-group-item">
+                                <div class="col-lg-12">
+                                    <h6 class="card-text"><strong class="quiz-title">{{assignQuiz.quiz.title}}</strong>
+                                    </h6>
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <h6 class="card-text"><strong><i class="fa fa-calendar"></i> Date de
+                                                passage:</strong>
+                                            {{assignQuiz.passingAt}}</h6>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <h6 class="card-text"><strong><i class="fa fa-calendar"></i> {{'Assigné
+                                                par:' | translate}}</strong>
+                                            {{assignQuiz.assignedBy.firstName}} {{assignQuiz.assignedBy.lastName}}</h6>
+                                    </div>
+                                </div>
+                            </li>
+                            <br>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

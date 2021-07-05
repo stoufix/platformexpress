@@ -1,0 +1,146 @@
+<div class="title">
+  <div class="row">
+    <div class="col-lg-6">
+      <h3>{{'Affectation des QCM - Editer' | translate}}</h3>
+    </div>
+    <!-- Assign Quiz Button -->
+    <div class="col-lg-6 text-right">
+      <button class="btn btn-primary btn-save" id="save-update-assigned-quizzes-to-candidates-btn" (click)="updateOnlineInterview()">
+        <i class="fa fa-plus-circle fa-lg"></i> {{'Enregistrer' | translate}}
+      </button>
+    </div>
+  </div>
+</div>
+<div class="content">
+  <div class="row">
+    <div class="col-lg-6">
+      <div class="row">
+        <div class="col-lg-12 text-center">
+          <h4>{{'Liste des QCM' | translate}}</h4>
+        </div>
+        <!-- Number of elements select form -->
+        <div class="col-lg-8">
+          <div class="btn-group">
+            <span class="label label-default">{{'Afficher' | translate}}</span>&nbsp;
+            <button type="button" id="show-items-list-btn" class="btn dropdown-toggle btn-dropdown" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false">
+              {{item}}
+            </button>
+            <div class="dropdown-menu">
+              <a class="dropdown-item" id="five-items" (click)="getItems(5)">5</a>
+              <a class="dropdown-item" id="ten-items" (click)="getItems(10)">10</a>
+              <a class="dropdown-item" id="twenty-items" (click)="getItems(20)">20</a>
+              <a class="dropdown-item" id="fifty-items" (click)="getItems(50)">50</a>
+            </div>
+            &nbsp;
+            <span class="label label-default">{{'éléments' | translate}}</span>
+          </div>
+        </div>
+        <!-- Search form -->
+        <div class="col-lg-4 text-right">
+          <div class="input-group search">
+            <input type="text" id="search-assign-quiz" class="form-control search" placeholder="{{'Recherche...' | translate}}"
+              [(ngModel)]="searchInput" (input)="onSearch($event.target.value)">
+          </div>
+        </div>
+        <div class="col-lg-12">
+          <div class="table-responsive-lg">
+            <table class="table table-bordered table-striped table-hover">
+              <thead class="row-border hover">
+                <tr>
+                  <th style="width: 10%;">{{'Titre' | translate}}</th>
+                  <th style="width: 12%;">{{'Technologies' | translate}}</th>
+                  <th style="width: 10%;">{{'Niveau' | translate}}</th>
+                  <th style="width: 10%;" class="text-center">{{'Actions' | translate}}</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let quiz of listQuizzes | paginate: { itemsPerPage: item, currentPage: p, totalItems: total ,id:'idFirstListAllQuiz'}">
+                  <td>{{quiz.title}}</td>
+                  <td>{{quiz.technology.title}}</td>
+                  <td>{{quiz.degree.title}}</td>
+                  <td>
+                    <button class="btn btn-circle btn-sm" (click)="addSelectedQuiz(quiz)" *ngIf="testIfQuizNotExistInListAssignedQuizzes(quiz.id)"><i
+                        class="fa fa-arrow-right"></i></button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <!-- No data in table message-->
+            <div *ngIf="listQuizzes?.length==0">
+              <div class="nodata-box">
+                <div class="nodata-text" id="no-data-available-table">{{'Aucune donnée trouvée.' | translate}}</div>
+              </div>
+            </div>
+            <!-- Pagination-->
+            <div class="clearfix">
+              <div class="hint-text">{{'Total' | translate}}: <b>{{total}}</b> {{'éléments' | translate}}</div>
+              <div class="pagination justify-content-end">
+                <nav class="Page navigation example">
+                  <pagination-controls id="idFirstListAllQuiz" (pageChange)="p=$event" (click)="onSelect(p)"
+                    previousLabel="{{'Précédente' | translate}}" nextLabel="{{'Suivante' | translate}}"></pagination-controls>
+                </nav>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-6">
+      <!-- Assigned quizzes list -->
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="card">
+            <h6 class="card-header list-group-item list-group-item-action active">{{'QCM déjà Affecté(s)' | translate}}</h6>
+            <div class="card-body">
+              <ul class="list-group list-group-flush" *ngFor="let assignedQuiz of onlineInterviewToUpdate?.assignedQuizzes">
+                <li>
+                  <div class="notice notice-info">
+                    <strong>{{'QCM:' | translate}} </strong> {{assignedQuiz.quiz.title}}
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Assign quizzes list -->
+      <div class="row">.
+        <div class="col-lg-12">
+          <div class="card">
+            <h6 class="card-header list-group-item list-group-item-action active">{{'Nouveau(x) QCM à affecter' |
+              translate}}</h6>
+            <div class="card-body">
+              <!-- Assign Date -->
+              <div class="row">
+                <div class="col-lg-12">
+                  <form #dateForm="ngForm">
+                    <div class="form-group row">
+                      <label for="date-update" class="col-lg-6 col-form-label"><strong>{{'Date de passage:' |
+                          translate}}</strong></label>
+                      <div class="col-lg-6">
+                        <input type="date" id="date-update" name="passingAt" class="form-control" [(ngModel)]="passingAt"
+                          required>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+                <br>
+                <div class="col-lg-12">
+                  <ul class="list-group list-group-flush" *ngFor="let quiz of listQuizzesAdded">
+                    <li>
+                      <div class="notice notice-info">
+                        <strong>{{'QCM:' | translate}} </strong> {{quiz.title}}
+                        <button class="icon-button float-right" (click)="removeQuizFromNewListSelectedQuizzes(quiz)">
+                          <i class="fa fa-times fa-lg" aria-hidden="true" [ngStyle]="{'color':'red'}"></i>
+                        </button>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>

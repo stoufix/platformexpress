@@ -1,0 +1,11 @@
+/* Bold text */
+.text-gras{
+  font-weight: bold;
+}
+
+/* Mail Link*/
+.mail-link {
+color: blue;
+text-decoration: underline;
+cursor: pointer;
+}

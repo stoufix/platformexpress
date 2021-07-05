@@ -1,0 +1,130 @@
+<div class="modal fade bd-example-modal-lg" id="editmodal" tabindex="-1" role="dialog" aria-labelledby="editModal"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{'Editer ce rôle' | translate}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form #addRolesForm="ngForm">
+          <!-- Alert for Name field -->
+          <div class="alert alert-danger" *ngIf="errorRole == true">
+            {{'Ce nom de rôle est déja utilisé !' | translate}}
+          </div>
+          <!-- Name field -->
+          <div class="form-group">
+            <label for="lastname" class="required">{{'Nom' | translate}}</label>
+            <input type="text" class="form-control" id="name-update" name="title" (input)="onSearchChangeRole($event.target.value)"
+              pattern="[a-zA-Z]{1}[a-z,A-Z,' ',é,è,ê,ù,û,ç,à,â,ô]{1,}" [(ngModel)]="roleToEdit.title" required>
+          </div>
+          <!-- Description field -->
+          <div class="form-group">
+            <label for="firstname">{{'Description' | translate}}</label>
+            <input type="text" class="form-control" id="description-update" name="description" placeholder=""
+              [(ngModel)]="roleToEdit.description">
+          </div>
+          <!-- Visibility for All activities -->
+          <div class="form-check">
+            <input type="checkbox" class="form-check-input active" id="activities" name="activities" [(ngModel)]="activitiesValue"
+              (change)="checkActivities()" checked>
+            <label class="form-check-label" for="exampleCheck1">{{'Ayant accès à toutes les activités' | translate}}</label>
+          </div>
+          <br>
+          <br>
+          <!-- Priviliges field -->
+          <label for="Priviléges">{{'Priviléges'| translate}}</label>
+          <div class="center-div">
+            <div class="form-row">
+              <!-- Quiz's privileges field -->
+              <div class="form-group col-md-4">
+                <p-listbox [options]="displayedQuizzes" [(ngModel)]="selectedPrivilegesQuizzesToEdit" name="selectedPrivilegesQuizzesToEdit"
+                  multiple="multiple" checkbox="checkbox" filter="filter" optionLabel="title" [style]="{'width':'200px','max-height':'500px'}">
+                  <p-header>
+                    <i class="fa fa-align-justify"></i>
+                    {{'Gestion des QCM'| translate}}
+                  </p-header>
+                </p-listbox>
+              </div>
+              <!-- Question's privileges field -->
+              <div class="form-group col-md-4">
+                <p-listbox [options]="displayedQuestions" [(ngModel)]="selectedPrivilegesQuestionsToEdit" name="selectedPrivilegesQuestionsToEdit"
+                  multiple="multiple" checkbox="checkbox" filter="filter" optionLabel="title" [style]="{'width':'200px','max-height':'500px'}">
+                  <p-header>
+                    <i class="fa fa-question-circle"></i>
+                    {{'Gestion des questions' | translate}}
+                  </p-header>
+                </p-listbox>
+              </div>
+              <!-- Degree's privileges field -->
+              <div class="form-group col-md-4">
+                <p-listbox [options]="displayedDegrees" [(ngModel)]="selectedPrivilegesDegreesToEdit" name="selectedPrivilegesDegreesToEdit"
+                  multiple="multiple" checkbox="checkbox" filter="filter" optionLabel="title" [style]="{'width':'200px','max-height':'500px'}">
+                  <p-header>
+                    <i class="fa fa-sliders"></i>
+                    {{'Gestion des niveaux' | translate}}
+                  </p-header>
+                </p-listbox>
+              </div>
+            </div>
+            <div class="form-row">
+              <!-- Technology's privileges field -->
+              <div class="form-group col-md-6">
+                <p-listbox [options]="displayedAspects" [(ngModel)]="selectedPrivilegesAspectsToEdit" name="selectedPrivilegesAspectsToEdit"
+                  multiple="multiple" checkbox="checkbox" filter="filter" optionLabel="title" [style]="{'width':'300px','max-height':'500px'}">
+                  <p-header>
+                    <i class="fa fa-align-center"></i>
+                    {{'Gestion des technologies' | translate}}
+                  </p-header>
+                </p-listbox>
+              </div>
+              <!-- Affectation Quiz's privileges field -->
+              <div class="form-group col-md-6">
+                <p-listbox [options]=" displayedAffectationQuiz" [(ngModel)]="selectedPrivilegesAffectationQuizToEdit"
+                  name="selectedPrivilegesAffectationQuizToEdit" multiple="multiple" checkbox="checkbox" filter="filter"
+                  optionLabel="title" [style]="{'width':'300px','height':'220px','max-height':'500px'}">
+                  <p-header>
+                    <i class="fa fa-align-justify"></i>
+                    {{'Affectation des quiz' | translate}}
+                  </p-header>
+                </p-listbox>
+              </div>
+            </div>
+            <div class="form-row">
+              <!-- Interview's privileges field -->
+              <div class="form-group col-md-6">
+                <p-listbox [options]="displayedInterviews" [(ngModel)]="selectedPrivilegesInterviewsToEdit" name="selectedPrivilegesInterviewsToEdit"
+                  multiple="multiple" checkbox="checkbox" filter="filter" optionLabel="title" [style]="{'width':'300px','max-height':'500px'}">
+                  <p-header>
+                    <i class="fa fa-align-justify"></i>
+                    {{'Gestion des entretiens' | translate}}
+                  </p-header>
+                </p-listbox>
+              </div>
+              <!-- Reclamation's privileges field -->
+              <div class="form-group col-md-6">
+                <p-listbox [options]="displayedMessages" [(ngModel)]="selectedPrivilegesMessagesToEdit" name="selectedPrivilegesMessagesToEdit"
+                  multiple="multiple" checkbox="checkbox" filter="filter" optionLabel="title" [style]="{'width':'300px','max-height':'500px'}">
+                  <p-header>
+                    <i class="fa fa-align-justify"></i>
+                    {{'Gestion des reclamations' | translate}}
+                  </p-header>
+                </p-listbox>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <!-- Close button -->
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">{{'Fermer' | translate}}</button>
+        &nbsp;
+        <!-- Update button -->
+        <button type="button" class="btn btn-primary" id="submit-update-role" data-dismiss="modal" (click)="updateRole()"
+          [disabled]="!addRolesForm.valid">{{'Enregistrer' | translate}}</button>
+      </div>
+    </div>
+  </div>
+</div>

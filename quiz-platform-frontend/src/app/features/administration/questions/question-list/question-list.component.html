@@ -1,0 +1,148 @@
+<div id="accordion">
+  <div class="card border-secondary">
+    <div class="card-header border-secondary" id="info">
+      <!-- Advanced Search Section -->
+      <div class="row">
+        <div class="col-12">
+          <button id="advanced-search-question-btn" type="button" class="btn btn-light btn-sm" data-toggle="collapse"
+            data-target="#collapseInfo"><i class="fa fa-chevron-down" aria-hidden="true"></i> <strong>
+              {{'Recherche avancée' | translate}}</strong></button>
+        </div>
+      </div>
+    </div>
+    <div id="collapseInfo" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+      <div class="card-body">
+        <div class="row">
+          <!-- Technologies List -->
+          <div class="col-6">
+            <i class="fa fa-align-center"></i>&nbsp;
+            <label>{{'Liste des Technologies:' | translate}}</label>
+            <ng-multiselect-dropdown id="technologies-multiselect-dropdown" class="form-select" [placeholder]="'Technologies'"
+              [data]="dropdownListTechnologies" [(ngModel)]="selectedTechnologies" [settings]="dropdownSettingsTechnologies"
+              (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)">
+            </ng-multiselect-dropdown>
+          </div>
+          <!-- Degrees List -->
+          <div class="col-6">
+            <i class="fa fa-sliders"></i>&nbsp;
+            <label>{{'Liste des Niveaux:' | translate}}</label>
+            <ng-multiselect-dropdown id="degrees-multiselect-dropdown" class="form-select" [placeholder]="'Niveaux'"
+              [data]="dropdownListDegrees" [(ngModel)]="selectedDegrees" [settings]="dropdownSettingsDegrees"
+              (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)">
+            </ng-multiselect-dropdown>
+          </div>
+        </div>
+        <br>
+        <div class="row">
+          <!-- users List -->
+          <div class="col-6">
+            <i class="fa fa-users"></i>&nbsp;
+            <label>{{'Liste des Créateurs:' | translate}}</label>
+            <ng-multiselect-dropdown id="creator-multiselect-dropdown" class="form-select" [placeholder]="'Créateurs'"
+              [data]="dropdownListUsernames" [(ngModel)]="selectedNames" [settings]="dropdownSettingsUsernames"
+              (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)">
+            </ng-multiselect-dropdown>
+          </div>
+          <!-- Activities List -->
+          <div *ngIf="show" class="col-6">
+            <i class="fa fa-building"></i>&nbsp;
+            <label>{{'Liste des Activités:' | translate}}</label>
+            <ng-multiselect-dropdown id="activity-multiselect-dropdown" class="form-select" [placeholder]="'Activités'"
+              [data]="dropdownListActivities" [(ngModel)]="selectedActivities" [settings]="dropdownSettingsActivities"
+              (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)">
+            </ng-multiselect-dropdown>
+          </div>
+        </div>
+        <!-- Advanced search button -->
+        <div class="btn-search float-right">
+          <button id="search-question-btn" type="button" class="btn btn-warning btn-adv-search" title="Filtrer" (click)="advancedSearch(selectedTechnologies,selectedDegrees,selectedNames,selectedActivities)">
+            <i class="fa fa-search"></i> {{'Chercher' | translate}}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <!-- Number of elements select form -->
+  <div class=" col-md-8">
+    <div class="btn-group">
+      <span class="label label-default">{{'Afficher' | translate}}</span>&nbsp;
+      <button type="button" id="show-items-list-btn" class="btn dropdown-toggle btn-dropdown" data-toggle="dropdown"
+        aria-haspopup="true" aria-expanded="false">
+        {{item}}
+      </button>
+      <div class="dropdown-menu">
+        <a class="dropdown-item" id="five-items" (click)="getItems(5)">5</a>
+        <a class="dropdown-item" id="ten-items" (click)="getItems(10)">10</a>
+        <a class="dropdown-item" id="twenty-items" (click)="getItems(20)">20</a>
+        <a class="dropdown-item" id="fifty-items" (click)="getItems(50)">50</a>
+      </div>
+      &nbsp;
+      <span class="label label-default">{{'éléments' | translate}}</span>
+    </div>
+  </div>
+  <!-- Search form -->
+  <div class=" col-md-4 text-right">
+    <div class="input-group search">
+      <input type="text" id="search-question" class="form-control search" placeholder="{{'Recherche...' | translate}}"
+        [(ngModel)]="searchInput" (input)="onSearch($event.target.value)">
+    </div>
+  </div>
+</div>
+<!-- Question list Table -->
+<div class="table-responsive-lg">
+  <table class="table table-bordered table-striped table-hover">
+    <thead>
+      <tr>
+        <th style="width: 39%;">{{'Question' | translate}}</th>
+        <th style="width: 10%;">{{'Technologie' | translate}}</th>
+        <th style="width: 10%;">{{'Niveau' | translate}}</th>
+        <th style="width: 10%;">{{'Date de création' | translate}}</th>
+        <th style="width: 10%;">{{'Créateur' | translate}}</th>
+        <th style="width: 10%;">{{'Activité' | translate}}</th>
+        <th style="width: 11%;">{{'Actions' | translate}}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let question of listQuestions | paginate: { itemsPerPage: item, currentPage: p, totalItems: total }">
+        <td [innerHtml]="question.description">{{question.description}}</td>
+        <td>{{question.technology.title}}</td>
+        <td>{{question.degree.title}}</td>
+        <td>{{question.createdAt}}</td>
+        <td>{{question.createdBy.firstName}} {{question.createdBy.lastName}}</td>
+        <td>{{question.activity.title}}</td>
+        <td>
+          <button type="button" class="btn btn-detail" title="Afficher cette question" data-toggle="modal" data-target="#detailsmodal"
+            (click)="openDetailsModal(question)">
+            <i class="fa fa-align-justify"></i>
+          </button>
+          &nbsp;
+          <button type="button" class="btn btn-primary btn-circle" title="Modifier cette question" data-toggle="modal"
+            data-target="#editmodal" (click)="openEditModal(question)">
+            <i class="fa fa-edit"></i>
+          </button>
+          &nbsp;
+          <button type="button" class="btn btn-danger btn-circle" title="Supprimer cette question" (click)="deleteQuestions(question.id)"><i
+              class="fa fa-trash"></i></button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <!-- No data in table message-->
+  <div *ngIf="listQuestions?.length==0">
+    <div class="nodata-box">
+      <div class="nodata-text" id="no-data-available">{{'Aucune donnée trouvée.' | translate}}</div>
+    </div>
+  </div>
+</div>
+<!-- Pagination -->
+<div class="clearfix">
+  <div class="hint-text">{{'Total' | translate}}: <b>{{total}}</b> {{'éléments' | translate}}</div>
+  <div class="pagination justify-content-end">
+    <nav class="Page navigation example">
+      <pagination-controls (pageChange)="p=$event" (click)="onSelect(p)" previousLabel="{{'Précédente' | translate}}"
+        nextLabel="{{'Suivante' | translate}}"></pagination-controls>
+    </nav>
+  </div>
+</div>

@@ -1,0 +1,62 @@
+<form class="general.information" #generalInformationForm="ngForm">
+    <h2>Information générale</h2>
+    <!-- FirsName field -->
+    <div class="form-group row">
+        <label for="firstName" class="col-sm-3 col-form-label required">Prénom</label>
+        <div class="col-sm-9">
+            <input type="text" id="firstName" name="firstName" class="form-control" pattern="[a-zA-Z]{1}[a-z,A-Z,' ']{2,}"
+                [(ngModel)]="connectedUserInfo.firstName" required>
+        </div>
+    </div>
+    <!-- LastName field -->
+    <div class="form-group row">
+        <label for="lastName" class="col-sm-3 col-form-label required">Nom</label>
+        <div class="col-sm-9">
+            <input type="text" id="lastName" name="lastName" class="form-control" pattern="[a-zA-Z]{1}[a-z,A-Z,' ']{2,}"
+                [(ngModel)]="connectedUserInfo.lastName" required>
+        </div>
+    </div>
+    <!-- E-Mail field -->
+    <div class="form-group row">
+        <label required for="email" class="col-sm-3 col-form-label required">E-Mail</label>
+        <div class="col-sm-9">
+            <input type="text" id="email" name="email" class="form-control" (input)="onSearchChangeEmail($event.target.value)"
+                pattern="[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}" [(ngModel)]="connectedUserInfo.email"
+                required>
+            <div class="alert alert-danger" *ngIf="errorMail == true">
+                Cet email est déja utilisé !
+            </div>
+        </div>
+    </div>
+    <!-- Address field -->
+    <div class="form-group row">
+        <label for="address" class="col-sm-3 col-form-label required">Adresse</label>
+        <div class="col-sm-9">
+            <input type="text" id="address" name="address" class="form-control" [(ngModel)]="connectedUserInfo.address"
+                required>
+        </div>
+    </div>
+    <!-- PhoneNumber field -->
+    <div class="form-group row">
+        <label for="phoneNumber" class="col-sm-3 col-form-label required">Téléphone</label>
+        <div class="col-sm-9">
+            <input type="number" class="form-control" id="phoneNumber" name="phoneNumber" pattern="[0-9]{8}"
+                [(ngModel)]="connectedUserInfo.phoneNumber" required>
+        </div>
+    </div>
+    <!-- BirthDate field -->
+    <div class="form-group row">
+        <label for="birthDate" class="col-sm-3 col-form-label required">Date de naissance</label>
+        <div class="col-sm-9">
+            <input type="date" id="birthDate" name="birthDate" class="form-control" [(ngModel)]="connectedUserInfo.birthDate"
+                required>
+        </div>
+    </div>
+    <!-- Update button -->
+    <div class="form-group row">
+        <div class="col-sm-12">
+            <input type="button" id="save-profile-info" name="save-profile-info" class="btn btn-info btn-add  float-sm-right"
+                (click)="updateUserInfo()" value="Enregistrer" [disabled]="!generalInformationForm.valid || errorMail == true">
+        </div>
+    </div>
+</form>

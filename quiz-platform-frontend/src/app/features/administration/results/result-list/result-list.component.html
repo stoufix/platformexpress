@@ -1,0 +1,77 @@
+<div class="row">
+  <!-- Number of elements select form -->
+  <div class=" col-md-8">
+    <div class="btn-group">
+      <span class="label label-default">{{'Afficher' | translate}}</span>&nbsp;
+      <button type="button" id="show-items-list-btn" class="btn dropdown-toggle btn-dropdown" data-toggle="dropdown"
+        aria-haspopup="true" aria-expanded="false">
+        {{item}}
+      </button>
+      <div class="dropdown-menu">
+        <a class="dropdown-item" id="five-items" (click)="getItems(5)">5</a>
+        <a class="dropdown-item" id="ten-items" (click)="getItems(10)">10</a>
+        <a class="dropdown-item" id="twenty-items" (click)="getItems(20)">20</a>
+        <a class="dropdown-item" id="fifty-items" (click)="getItems(50)">50</a>
+      </div>
+      &nbsp;
+      <span class="label label-default">{{'éléments' | translate}}</span>
+    </div>
+  </div>
+  <!-- Search form -->
+  <div class=" col-md-4 text-right">
+    <div class="input-group search">
+      <input type="text" id="search-result" class="form-control search" placeholder="{{'Recherche...' | translate}}"
+        [(ngModel)]="searchInput" (input)="onSearch($event.target.value)">
+    </div>
+  </div>
+</div>
+<!-- Results list Table -->
+<div class="table-responsive-lg">
+  <table class="table table-bordered table-striped table-hover">
+    <thead class="row-border hover">
+      <tr>
+        <th style="width: 20%;">{{'Candidat' | translate}}</th>
+        <th style="width: 20%;">{{'Quiz' | translate}}</th>
+        <th style="width: 10%;" class="text-center">{{'Note' | translate}}</th>
+        <th style="width: 20%;" class="text-center">{{'Date de passage' | translate}}</th>
+        <th style="width: 10%;" class="text-center">{{'Durée' | translate}}</th>
+        <th style="width: 10%;" class="text-center">{{'Actions' | translate}}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let result of listResults | paginate: { itemsPerPage: item, currentPage: p, totalItems: total }">
+        <td>{{result.onlineInterview.application.candidate.firstName}}
+          {{result.onlineInterview.application.candidate.lastName}}
+        </td>
+        <td>{{result.quiz.title}}</td>
+        <td class="text-center">{{result.note}}</td>
+        <td class="text-center">{{result.interviewDate}}</td>
+        <td class="text-center">{{result.duration}} minutes</td>
+        <td class="text-center">
+          <button type="button" class="btn btn-detail" title="Afficher les details de resultat" data-toggle="modal"
+            data-target="#detailsmodal" (click)="openResultDetail(result.id)">
+            <i class="fa fa-align-justify"></i>
+          </button>
+          &nbsp;
+          <button type="button" class="btn btn-danger btn-circle" title="Supprimer cette resultat" (click)="deleteResult(result.id)"><i
+              class="fa fa-remove"></i></button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <!-- No data in table message-->
+  <div *ngIf="listResults?.length==0">
+    <div class="nodata-box">
+      <div class="nodata-text" id="no-data-available">{{'Aucune donnée trouvée.' | translate}}</div>
+    </div>
+  </div>
+  <!-- Pagination-->
+  <div class="clearfix">
+    <div class="hint-text">{{'Total' | translate}}: <b>{{total}}</b> {{'éléments' | translate}}</div>
+    <div class="pagination justify-content-end">
+      <nav class="Page navigation example">
+        <pagination-controls (pageChange)="p=$event" (click)="onSelect(p)" previousLabel="Précédente" nextLabel="Suivante"></pagination-controls>
+      </nav>
+    </div>
+  </div>
+</div>

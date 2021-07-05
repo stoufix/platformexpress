@@ -1,0 +1,84 @@
+<div class="row">
+  <!-- Number of elements select form -->
+  <div class=" col-md-8">
+    <div class="btn-group">
+      <span class="label label-default">{{'Afficher' | translate}}</span>&nbsp;
+      <button type="button" id="show-items-list-btn" class="btn dropdown-toggle btn-dropdown" data-toggle="dropdown"
+        aria-haspopup="true" aria-expanded="false">
+        {{item}}
+      </button>
+      <div class="dropdown-menu">
+        <a class="dropdown-item" id="five-items" (click)="getItems(5)">5</a>
+        <a class="dropdown-item" id="ten-items" (click)="getItems(10)">10</a>
+        <a class="dropdown-item" id="twenty-items" (click)="getItems(20)">20</a>
+        <a class="dropdown-item" id="fifty-items" (click)="getItems(50)">50</a>
+      </div>
+      &nbsp;
+      <span class="label label-default">{{'éléments' | translate}}</span>
+    </div>
+  </div>
+  <!-- Search form -->
+  <div class=" col-md-4 text-right">
+    <div class="input-group search">
+      <input type="text" id="search-interview" class="form-control search" placeholder="{{'Recherche...' | translate}}"
+        [(ngModel)]="searchInput" (input)="onSearch($event.target.value)">
+    </div>
+  </div>
+</div>
+<!-- Interviews list Table -->
+<div class="table-responsive-lg">
+  <table class="table table-bordered table-striped table-hover">
+    <thead class="row-border hover">
+      <tr>
+        <th style="width: 20%;">{{'Candidat' | translate}}</th>
+        <th style="width: 20%;">{{'Date de création' | translate}}</th>
+        <th style="width: 40%;">{{'Commentaire' | translate}}</th>
+        <th style="width: 10%;" class="text-center">{{'Statut' | translate}}</th>
+        <th style="width: 10%;" class="text-center">{{'Actions' | translate}}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let interview of listInterviews | paginate: { itemsPerPage: item, currentPage: p, totalItems: total }">
+        <td>{{interview.application.candidate.firstName}} {{interview.application.candidate.lastName}}</td>
+        <td>{{interview.createdAt}}</td>
+        <td>{{interview.comments}}</td>
+        <td class="text-center">
+          <div *ngIf="interview.status == 'initialized'">
+            <span class="badge badge-primary">{{'Nouveau' | translate}}
+            </span>
+          </div>
+          <div *ngIf="interview.status == 'inProgress'">
+            <span class="badge badge-warning">{{'En cours' | translate}}
+            </span>
+          </div>
+          <div *ngIf="interview.status == 'terminated'">
+            <span class="badge badge-success">{{'Terminé' | translate}}
+            </span>
+          </div>
+        </td>
+        <td class="text-center">
+          <button type="button" class="btn btn-detail" title="Afficher cet entretien" data-toggle="modal" data-target="#detailsmodal"
+            (click)="openInterviewDetail(interview.id)">
+            <i class="fa fa-align-justify"></i>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <!-- No data in table message-->
+  <div *ngIf="listInterviews?.length==0">
+    <div class="nodata-box">
+      <div class="nodata-text" id="no-data-available">{{'Aucune donnée trouvée.' | translate}</div>
+    </div>
+  </div>
+  <!-- Pagination-->
+  <div class="clearfix">
+    <div class="hint-text">{{'Total' | translate}}: <b>{{total}}</b> {{'éléments' | translate}}</div>
+    <div class="pagination justify-content-end">
+      <nav class="Page navigation example">
+        <pagination-controls (pageChange)="p=$event" (click)="onSelect(p)" previousLabel="{{'Précédente' | translate}}"
+          nextLabel="{{'Suivante' | translate}}"></pagination-controls>
+      </nav>
+    </div>
+  </div>
+</div>

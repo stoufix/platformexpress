@@ -1,0 +1,11 @@
+<div class="col-lg-12">
+    <div class="card mx-auto mb-3" style="max-width: 40rem;" *ngFor="let assignedQuiz of listOfAssignedQuizzes">
+        <div class="card-header bg-transparent"><strong class="gradient-blue">{{assignedQuiz?.quiz?.title}}</strong></div>
+        <div class="card-body">
+            <h6 class="card-title"><strong>Durée: </strong>{{assignedQuiz?.quiz?.duration}}(min)</h6>
+            <p class="card-text"><strong>Description: </strong>{{assignedQuiz?.quiz?.description}}</p>
+        </div>
+        <div class="card-footer bg-transparent text-right"><button type="button" class="btn btn-start-quiz" (click)="startQuiz(assignedQuiz.id.quizId,assignedQuiz.id.onlineInterviewId)">
+                Commencer</button></div>
+    </div>
+</div>

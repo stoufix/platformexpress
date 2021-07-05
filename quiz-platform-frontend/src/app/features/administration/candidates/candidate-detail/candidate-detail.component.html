@@ -1,0 +1,194 @@
+<div class="title">
+    <h3>{{'Fiche du candidat' | translate}}</h3>
+</div>
+<div class="content">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="profile-card-4 z-depth-3">
+                    <!-- candidate generale information section -->
+                    <div class="card">
+                        <div class="card-body text-center bg-primary rounded-top">
+                            <h5 class="mb-1 text-white">{{candidate?.firstName}}&nbsp;{{candidate?.lastName}}</h5>
+                            <h6 class="text-light">{{candidate?.profil}}</h6>
+                        </div>
+                        <div class="card-body">
+                            <ul class="list-group shadow-none">
+                                <li class="list-group-item">
+                                    <div class="list-icon">
+                                        <i class="fa fa-home" aria-hidden="true"></i>
+                                    </div>
+                                    <div class="list-details">
+                                        <span>{{candidate?.address}}</span>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    <div class="list-icon">
+                                        <i class="fa fa-phone-square"></i>
+                                    </div>
+                                    <div class="list-details">
+                                        <span>{{candidate?.phoneNumber}}</span>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    <div class="list-icon">
+                                        <i class="fa fa-envelope" aria-hidden="true"></i>
+                                    </div>
+                                    <div class="list-details">
+                                        <span>{{candidate?.email}}</span>
+                                    </div>
+                                </li>
+                            </ul>
+                            <div class="row text-center mt-4">
+                                <div class="col p-2">
+                                    <h4 class="mb-1 line-height-5">{{candidate?.experience}} {{'ans' | translate}}</h4>
+                                    <small class="mb-0 font-weight-bold" translate>d'expérience</small>
+                                </div>
+                                <div class="col p-2">
+                                    <h4 class="mb-1 line-height-5" style="font-size: 20px">{{candidate?.availabilityDate|
+                                        date:'dd/MM/yyyy'}}</h4>
+                                    <small class="mb-0 font-weight-bold">{{'Date de disponibilité' | translate}}</small>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-8">
+                <div class="card z-depth-3">
+                    <div class="card-body">
+                        <ul class="nav nav-pills nav-pills-primary nav-justified">
+                            <!-- Profil menu -->
+                            <li class="nav-item">
+                                <a href="javascript:void();" data-target="#profile" data-toggle="pill"
+                                    class="nav-link active show"><i class="icon-user"></i> <span
+                                        class="hidden-xs">{{'Profil' | translate}}</span></a>
+                            </li>
+                            <!-- Interview menu -->
+                            <li class="nav-item">
+                                <a href="javascript:void();" data-target="#quizzes" data-toggle="pill"
+                                    class="nav-link"><i class="icon-envelope-open"></i> <span class="hidden-xs">{{'Entretiens en
+                                        ligne' | translate}}</span></a>
+                            </li>
+
+                        </ul>
+                        <div class="tab-content p-3">
+                            <!-- Profil information section -->
+                            <div class="tab-pane active show" id="profile">
+                                <h5 class="mb-3"></h5>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <h6 class="font-weight-bold" translate>Nom d'utilisateur</h6>
+                                        <h6 *ngIf="candidate?.username; then showBlock; else notShowBlock" translate>Nom
+                                            d'utilisateur</h6>
+                                        <ng-template #notShowBlock>
+                                            <p>
+                                                {{'Non effectué' | translate}}
+                                            </p>
+                                        </ng-template>
+                                        <ng-template #showBlock>
+                                            <p>
+                                                {{candidate?.username}}
+                                            </p>
+                                        </ng-template>
+                                        <h6 class="font-weight-bold">{{'Date de naissance' | translate}}</h6>
+                                        <p>
+                                            {{candidate?.birthDate | date:'dd/MM/yyyy'}}
+                                        </p>
+                                        <h6 class="font-weight-bold">{{'Université' | translate}}</h6>
+
+                                        <p *ngIf="candidate?.university === null">
+                                            {{'Inconnue' | translate}}
+                                        </p>
+                                        <p *ngIf="candidate?.university !== null">
+                                            {{candidate?.university}}
+                                        </p>
+
+                                        <h6 class="font-weight-bold">{{'Créé en' | translate}}</h6>
+                                        <p>
+                                            {{candidate?.createdAt | date:'dd/MM/yyyy'}}
+                                        </p>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h6 class="font-weight-bold">{{'Statut' | translate}}</h6>
+                                        <div *ngIf="candidate?.status == 'initialized'">
+                                            <span class="badge badge-primary">{{'Nouveau' | translate}}
+                                            </span>
+                                        </div>
+                                        <div *ngIf="candidate?.status == 'inProgress'">
+                                            <span class="badge badge-warning">{{'En cours' | translate}}
+                                            </span>
+                                        </div>
+                                        <div *ngIf="candidate?.status == 'Refusé'">
+                                            <span class="badge badge-danger">{{candidate?.status}}
+                                            </span>
+                                        </div>
+
+                                        <div *ngIf="candidate?.status == 'recruited'">
+                                            <span class="badge badge-success">{{'Recruté' | translate}}
+                                            </span>
+                                        </div>
+                                        <br>
+                                        <h6 class="font-weight-bold">{{'Etat du compte' | translate}}</h6>
+                                        <div *ngIf="candidate?.activated">
+                                            <span class="badge badge-success">{{'Activé' | translate}}
+                                            </span>
+                                        </div>
+                                        <div *ngIf="!candidate?.activated">
+                                            <span class="badge badge-danger">{{'Desactivé' | translate}}
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Interviews information section -->
+                            <div class="tab-pane" id="quizzes">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <h5><strong>{{'QCM affectés' | translate}}</strong></h5>
+                                    </div>
+                                    <div class="col-lg-12" *ngFor="let application of candidate.applications">
+                                        <div class="col-lg-12"
+                                            *ngFor="let assignedQuiz of application.onlineInterview?.assignedQuizzes">
+                                            <div class="row">
+                                                <div class="col-lg-6">
+                                                    {{assignedQuiz?.quiz.title}}
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <span>{{'Date de passage:' | translate}}</span>{{assignedQuiz?.passingAt}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <h5><strong>{{'QCM passés' | translate}}</strong></h5>
+                                    </div>
+                                    <div class="col-lg-12" *ngFor="let application of candidate.applications">
+                                        <div class="col-lg-12"
+                                            *ngFor="let passedQuiz of application.onlineInterview?.passedQuizzes">
+                                            <div class="row">
+                                                <div class="col-lg-6">
+                                                    {{passedQuiz?.quiz.title}}
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <span>{{'Date de passage:' | translate}}
+                                                    </span>{{passedQuiz?.passingAt}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

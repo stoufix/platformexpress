@@ -1,0 +1,184 @@
+<div class="title">
+    <h3>{{'Affectation des QCM - Nouveau' | translate}}
+        <button id="save-assign-quizzes-to-candidates-btn" class="btn btn-primary btn-save-right btn-add" (click)="affectQuizToUser(passingAt)">
+            <i class="fa fa-check"></i> {{'Enregistrer' | translate}}
+        </button>
+    </h3>
+</div>
+<div class="content">
+    <div class="row">
+        <!-- Assign section  -->
+        <div class="col-lg-12" style="padding-top: 10px">
+            <div class="card">
+                <div class="card-header text-center">
+                    <label class="font-weight-bold">{{'Affectation' | translate}}</label>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <!-- Assigned application section -->
+                        <div class="col-lg-5">
+                            <ul class="list-group list-group-flush" *ngFor="let selectedCandidate of listOfSelectedCandidates">
+                                <li>
+                                    <div class="notice notice-info">
+                                        <strong>{{'Candidat:' | translate}}</strong>
+                                        {{selectedCandidate.application.candidate.firstName}}
+                                        {{selectedCandidate.application.candidate.lastName}}
+                                        <button class="icon-button float-right" (click)="removeSelectedCandidate(selectedCandidate)">
+                                            <i class="fa fa-times fa-lg" aria-hidden="true" [ngStyle]="{'color':'red'}"></i>
+                                        </button>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- Assign date section -->
+                        <div class="col-lg-2 text-center">
+                            <form #dateForm="ngForm">
+                                <span>{{'Date de passage'| translate}}</span>
+                                <input type="date" id="date" class="form-control" name="passingAt" [(ngModel)]="passingAt"
+                                    required>
+                            </form>
+                        </div>
+                        <!-- Assigned quiz section -->
+                        <div class="col-lg-5">
+                            <ul class="list-group list-group-flush" *ngFor="let selectedQuiz of listOfSelectedQuizzes">
+                                <li>
+                                    <div class="notice notice-info">
+                                        <strong>{{'QCM:' | translate}}</strong>{{selectedQuiz.title}}
+                                        <button class="icon-button float-right" (click)="removeSelectedQuiz(selectedQuiz)">
+                                            <i class="fa fa-times fa-lg" aria-hidden="true" [ngStyle]="{'color':'red'}"></i>
+                                        </button>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer text-muted">
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <!-- Candidates list -->
+        <div class="col-lg-6" style="padding-top: 10px">
+            <div class="card text-center scroll">
+                <div class="card-header text-center">
+                    <label class="font-weight-bold">{{'Liste des candidats' | translate}}</label>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <!-- Number of elements select form -->
+                        <div class=" col-md-6">
+                            <div class="btn-group">
+                            </div>
+                        </div>
+                        <!-- Search form -->
+                        <div class=" col-md-6 text-right">
+                            <div class="input-group search">
+                                <input type="text" class="form-control search" placeholder="{{'Recherche...' | translate}}">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="table-responsive-lg">
+                        <table class="table table-bordered table-striped table-hover">
+                            <thead>
+                                <tr>
+                                    <th>{{'Nom complet' | translate}}</th>
+                                    <th>{{'Profil' | translate}}</th>
+                                    <th>{{'Sélectionner' | translate}}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let onlineInterview of listOfCandidates | paginate: { itemsPerPage: item, currentPage: c, totalItems: total ,id: 'Candidate'}">
+                                    <td>{{onlineInterview.application.candidate.firstName}}
+                                        {{onlineInterview.application.candidate.lastName}}</td>
+                                    <td>{{onlineInterview.application.candidate.profil}}</td>
+                                    <td><button class="btn btn-circle btn-sm" (click)="selectCandidate(onlineInterview)"
+                                            *ngIf="testIfCandidateNotExistInSelectedList(onlineInterview.id)"><i class="fa fa-arrow-up"></i></button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <!-- No data in table message-->
+                        <div *ngIf="listOfCandidates?.length==0">
+                            <div class="nodata-box">
+                                <div class="nodata-text" id="no-data-available">{{'Aucune donnée trouvée.' |
+                                    translate}}</div>
+                            </div>
+                        </div>
+                        <!-- Pagination-->
+                        <div class="clearfix">
+                            <div class="pagination justify-content-end">
+                                <nav class="Page navigation example">
+                                    <pagination-controls (pageChange)="c=$event" (click)="onSelect(c)" id="Candidate"
+                                        previousLabel="{{'Précédente' | translate}}" nextLabel="{{'Suivante' | translate}}"></pagination-controls>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Quiz list -->
+        <div class="col-lg-6" style="padding-top: 10px">
+            <div class="card text-center scroll">
+                <div class="card-header text-center">
+                    <label class="font-weight-bold">{{'Liste des QCM' | translate}}</label>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <!-- Number of elements select form -->
+                        <div class=" col-md-6">
+                            <div class="btn-group">
+                            </div>
+                        </div>
+                        <!-- Search form -->
+                        <div class=" col-md-6 text-right">
+                            <div class="input-group search">
+                                <input type="text" class="form-control search" placeholder="{{'Recherche...' | translate}}">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="table-responsive-lg">
+                        <table class="table table-bordered table-striped table-hover">
+                            <thead>
+                                <tr>
+                                    <th>{{'QCM' | translate}}</th>
+                                    <th>{{'Aspect' | translate}}</th>
+                                    <th>{{'Niveau' | translate}}</th>
+                                    <th>{{'Sélectionner' | translate}}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let quiz of listOfQuizzes | paginate: { itemsPerPage: itemQuizzes, currentPage: p, totalItems: totalQuizzes, id: 'Quizzes' }">
+                                    <td>{{quiz.title}}</td>
+                                    <td>{{quiz.technology.title}}</td>
+                                    <td>{{quiz.degree.title}}</td>
+                                    <td><button class="btn btn-circle btn-sm" (click)="selectQuiz(quiz)" *ngIf="testIfQuizNotExistInSelectedList(quiz.id)"><i
+                                                class="fa fa-arrow-up"></i></button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <!-- No data in table message-->
+                        <div *ngIf="listOfQuizzes?.length==0">
+                            <div class="nodata-box">
+                                <div class="nodata-text" id="no-data-available">{{'Aucune donnée trouvée.' |
+                                    translate}}</div>
+                            </div>
+                        </div>
+                        <!-- Pagination-->
+                        <div class="clearfix">
+                            <div class="pagination justify-content-end">
+                                <nav class="Page navigation example">
+                                    <pagination-controls (pageChange)="p=$event" id="Quizzes" (click)="onSelectQuizzes(p)"
+                                        previousLabel="{{'Précédente' | translate}}" nextLabel="{{'Suivante' | translate}}">
+                                    </pagination-controls>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

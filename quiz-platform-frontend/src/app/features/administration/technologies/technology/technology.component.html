@@ -1,0 +1,22 @@
+<!-- Title-->
+<div class="title">
+  <div class="row">
+    <div class="col-lg-6">
+      <h3>{{'Gestion des technologies' | translate}}</h3>
+    </div>
+    <!-- Add Technology Button -->
+    <div class="col-lg-6 text-right">
+      <button id="add-technology-btn" type="button" class="btn btn-primary btn-add" data-toggle="modal" title="Ajouter une nouvelle technologie"
+        data-target="#addModal">
+        <i class="fa fa-plus-circle fa-lg"></i> {{'Nouvelle technologie' | translate}} 
+      </button>
+    </div>
+  </div>
+</div>
+<!-- Content-->
+<div class="content">
+  <!-- Add Technology Modal -->
+  <app-technology-add (reloadEvent)="technologyList.reloadData()"></app-technology-add>
+  <!-- Technologies Table -->
+  <app-technology-list #technologyList></app-technology-list>
+</div>

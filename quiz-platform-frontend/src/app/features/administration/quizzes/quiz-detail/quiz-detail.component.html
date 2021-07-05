@@ -1,0 +1,52 @@
+<div class="modal fade" id="detailsmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="panel panel-primary">
+        <!-- Modal Header -->
+        <div class="modal-header" class="card">
+          <div class="card-header bg-light mb-3" style="text-align:center;">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <h1>{{quizDetails.title}}</h1>
+            <p class="card-text"> {{quizDetails.description}} </p>
+          </div>
+        </div>
+        <!-- Modal Body -->
+        <div class="modal-body">
+          <ol>
+            <ng-template ngFor let-quizQuestion [ngForOf]="quizDetails.questions" let-length="index">
+              <div class="card-body">
+                <!-- Question description section -->
+                <h5 style="font-weight: bold">
+                  <li [innerHtml]="quizQuestion.question.description">{{quizQuestion.question.description}}</li>
+                </h5> <br />
+                <!-- Proposition section -->
+                <div class="proposition">
+                  <ng-template ngFor let-proposition [ngForOf]="quizQuestion.question.propositions" let-length="index">
+                    <div class="card-text">
+                      <ul>
+                        <li> {{proposition.description}}</li>
+                      </ul>
+                    </div>
+                  </ng-template>
+                </div>
+                <!-- Mark section -->
+                <p style="float: right; "><small>{{quizQuestion.mark}} {{'points' | translate}}</small></p>
+              </div>
+              <br>
+            </ng-template>
+          </ol>
+        </div>
+        <div class="modal-footer">
+          <!-- Close button -->
+          <button type="button" id="exit-detail-quiz" class="btn btn-secondary" data-dismiss="modal">{{'Fermer' | translate}}</button>
+          &nbsp;
+          <!-- Download PDF button -->
+          <button type="button" id="download-detail-quiz" class="btn btn-info" data-dismiss="modal" (click)="downloadPDF(quizDetails)"
+            >{{'Télécharger' | translate}}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

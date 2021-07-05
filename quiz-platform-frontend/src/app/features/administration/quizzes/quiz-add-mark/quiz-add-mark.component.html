@@ -1,0 +1,30 @@
+<div class="modal fade" id="addMarkModal" tabindex="-1" role="dialog" aria-labelledby="addMarkModal" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{'Ajouter la note de la question' | translate}}</h5>
+        <button type="button" (click)="emptyObject()" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form #addMarkForm="ngForm">
+          <!-- Mark field (mark of question in the specific quiz) -->
+          <div class="form-group">
+            <label for="title" class="required">{{'Note:' | translate}}</label>
+            <input type="number" class="form-control" id="mark-add" name="mark"  [(ngModel)]="mark" required>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <!-- Close button -->
+        <button type="button" id="exit-add-mark" class="btn btn-secondary" (click)="emptyObject()" data-dismiss="modal"
+          >{{'Fermer' | translate}}</button>
+        &nbsp;
+        <!-- Add button -->
+        <button type="submit" id="submit-add-mark" class="btn btn-primary" (click)="addQuestion()" data-dismiss="modal"
+          [disabled]="!addMarkForm.valid || !mark">{{'Enregistrer' | translate}}</button>
+      </div>
+    </div>
+  </div>
+</div>

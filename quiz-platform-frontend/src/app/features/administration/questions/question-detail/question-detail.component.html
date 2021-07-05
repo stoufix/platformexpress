@@ -1,0 +1,38 @@
+<div class="modal fade" id="detailsmodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
+  [ngStyle]="{'display':display}">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <!-- Question description section -->
+        <h5 class="modal-title" id="exampleModalLabel" [innerHtml]="questionDetails.description">
+          {{questionDetails.description}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <!-- List of proposition serction -->
+      <div class="modal-body">
+        <ng-template ngFor let-p [ngForOf]="questionDetails.propositions" let-length="index">
+          <ul class="list-unstyled">
+            <li>
+              <div class="row">
+                <div class="col-1">
+                  <td class="badge" *ngIf="p.valid === true"><i class="fa fa-check-square-o" aria-hidden="true"
+                      [ngStyle]="{'color':'green'}"></i> </td>
+                  <td class="badge" *ngIf="p.valid === false"><i class="fa fa-square-o" aria-hidden="false" [ngStyle]="{'color':'red'}"></i></td>
+                </div>
+                <div class="col-11">
+                  <td><span id="description" name="description">{{p.description}}</span></td>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </ng-template>
+        <div class="modal-footer">
+          <!-- Close button -->
+          <button type="button" id="exit-detail-question" class="btn btn-secondary" data-dismiss="modal">{{'Fermer' | translate}}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

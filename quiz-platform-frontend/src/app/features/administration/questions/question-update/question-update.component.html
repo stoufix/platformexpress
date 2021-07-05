@@ -1,0 +1,112 @@
+<div class="modal fade" id="editmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel" translate>Modifier cette question</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form #updateQuestionForm="ngForm">
+          <!-- Description field -->
+          <div class="form-group">
+            <label for="description" class="required" translate>Description</label>
+            <!-- Descritption warning -->
+            <div class="alert alert-warning">
+              <div align-text="center" translate> Dans le cas de l'ajout d'une image, il faut écrire la question,
+                retourner à la
+                ligne puis l'ajouter.</div>
+            </div>
+            <p-editor [(ngModel)]="questionToEdit.description" name="description" [style]="{'height':'320px'}">
+            </p-editor>
+          </div>
+          <div>
+            <!-- Propostion form -->
+            <form #updatePropositionForm="ngForm">
+              <div class="form-group">
+                <label for="Propositions" class="required" translate>Propositions</label>
+                <!-- Number of proposition alert -->
+                <div class="alert alert-danger" *ngIf="questionToEdit.propositions.length < 2" role="alert">
+                  <div align-text="center" translate> Il faut ajouter plus que deux propositions !</div>
+                </div>
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <div class="input-group-text">
+                      <!-- Proposition validity field field -->
+                      <input type="checkbox" aria-label="Checkbox for following text input" id="update-question-valid"
+                        name="valid" [(ngModel)]="propositionToAdd.valid">
+                    </div>
+                  </div>
+                  <!-- Proposition description field -->
+                  <textarea id="update-question-proposition-add" type="textarea" class="form-control" name="propositionToAdd description"
+                    [(ngModel)]="propositionToAdd.description" required></textarea>
+                  &nbsp;
+                  <!-- Add proposition button -->
+                  <button id="update-question-add-proposition-btn" type="button" class="btn btn-secondary" data-toggle="modal"
+                    [disabled]="!updatePropositionForm.valid" (click)="addPropositionU(propositionToAdd.title,propositionToAdd.description,propositionToAdd.valid)">
+                    <i class="fa fa-plus"></i>
+                  </button>
+                </div>
+                <div class="data">
+                  <br>
+                  <!-- Proposition list section -->
+                  <ul class="list-unstyled">
+                    <li *ngFor="let proposition of questionToEdit.propositions">
+                      <div class="row">
+                        <div class="col-1">
+                          <td *ngIf="proposition.valid === true"> <i class="fa fa-check-square-o" aria-hidden="true"
+                              [ngStyle]="{'color':'green'}"></i></td>
+                          <td *ngIf="proposition.valid === false"> <i class="fa fa-square-o" aria-hidden="false"
+                              [ngStyle]="{'color':'red'}"></i></td>
+                        </div>
+                        <div class="col-9">
+                          <td><span *ngIf="!proposition.editMode" id="description" name="description">{{proposition.description}}</span></td>
+                          <form *ngIf="proposition.editMode">
+                            <div class="input-group mb-3">
+                              <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                  <input type="checkbox" aria-label="Checkbox for following text input" id="valid" name="valid"
+                                    [(ngModel)]="proposition.valid">
+                                </div>
+                              </div>
+                              <input type="text" class="form-control" id="description" name="description" *ngIf="proposition.editMode"
+                                [(ngModel)]="proposition.description">
+                              &nbsp;
+                              <button type="button" class="btn btn-outline-secondary" data-toggle="modal" (click)="editPropositionEditQuestion(proposition)">
+                                <i class="fa fa-check"></i>
+                              </button>
+                            </div>
+                          </form>
+                        </div>
+                        <div class="col-2">
+                          <td><button type="button" class="icon-button" (click)="proposition.editMode=true" data-toggle="tooltip">
+                              <i class="fa fa-pencil fa-lg" aria-hidden="true"></i>
+                            </button>
+                          </td>
+                          <td><button type="button" class="icon-button" (click)="deletePropositionsEditQuestion(proposition)"
+                              data-toggle="tooltip">
+                              <i class="fa fa-times fa-lg" aria-hidden="true" [ngStyle]="{'color':'red'}"></i>
+                            </button>
+                          </td>
+                        </div>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </form>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <!-- Close button -->
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" translate>Fermer</button>
+        &nbsp;
+        <!-- Update button -->
+        <button id="submit-update-question" type="button" class="btn btn-primary" data-dismiss="modal" (click)="updateQuestions()"
+          [disabled]="!updateQuestionForm.valid" translate>Modifier</button>
+      </div>
+    </div>
+  </div>
+</div>

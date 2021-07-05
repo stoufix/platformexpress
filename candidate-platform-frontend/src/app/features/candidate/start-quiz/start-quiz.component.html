@@ -1,0 +1,86 @@
+<nav class="navbar navbar-expand-lg navbar-light justify-content-between">
+  <div class="navbar-brand"><img class="img-fluid logo-altran" src="assets/images/altran.png" alt="" srcset="" />
+    <span class="title-application">QCM</span>
+  </div>
+  <span class="quiz-title">
+    {{quizToStart?.title}}
+  </span>
+</nav>
+
+<div class="body">
+  <div class="row">
+    <div class="col-sm-12 col-sm-offset-0">
+      <div id="form-container">
+        <div class="page-header">
+          <!-- the links to our nested states using relative paths -->
+          <!-- add the active class if the state matches our ui-sref -->
+          <div id="status-buttons" class="trackProgress">
+            <ul>
+              <li *ngFor="let item of listPassedQuestions; index as i" (click)="[changeQuestion(i),ifAnsweredQuestionSteppers()]">
+                <div *ngIf="(i+1)<listPassedQuestions.length" class="line-linkage"></div><a><span [ngStyle]="{'background-color': getColor(i)}">{{i+1}}</span>
+                  QUESTION {{i+1}} </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 left-part">
+        <div class="content">
+          <div class="header d-flex justify-content-between">
+            <strong>Question {{count + 1}} </strong>
+          
+          </div>
+          <br>
+          <div class="question-proposition">
+            <div class="question">
+              <!-- <p>{{count + 1}} - </p> -->
+              <h5 class="font-weight-bold" [innerHtml]="currentDescriptionQuestion"> {{currentDescriptionQuestion}}</h5>
+            </div>
+            <div class="proposition">
+              <ul>
+                <li *ngFor="let proposition of listOfPropositions; let i=index">
+                  <label class="check"><strong>{{proposition.description}}
+                      <input type="checkbox" name="checked" (change)="updateStatusOfAnsweredProposition($event,proposition)"
+                        [checked]="proposition.checked">
+                      <span class="checkmark"></span>
+                    </strong>
+                  </label>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <br>
+          <div class="buttons-prev-next text-center">
+            <button type="button" class="btn btn-option" (click)="[ifAnsweredQuestion(count),getQuestion('prev')]"
+              *ngIf="count > 0">Précédent
+              <i class="fa fa-angle-double-right"></i></button>
+            &nbsp;
+            <button type="button" class="btn btn-option" (click)="[ifAnsweredQuestion(count),getQuestion('next')]"
+               *ngIf="count != lengthOfListQuestions -1">Suivant
+              <i class="fa fa-angle-double-right"></i></button>
+          </div>
+        </div>
+        <br>
+      </div>
+      <div class="col-lg-1">
+      </div>
+      <div class="col-lg-3 right-part">
+        <div class="content">
+          <strong>Temps:</strong>
+          <div class="image-timer">
+            <img src="../../../../assets/images/timer.png" height="90px"><strong style="font-size: xx-large">{{ minutes
+              }} : {{seconds | number: '2.0'}}</strong>
+          </div>
+        </div>
+        <div class="save-button text-center">
+          <button type="button" class="btn btn-option" (click)="saveQuizResult()">Enregistrer</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,114 @@
+<div class="modal fade" id="detailsmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="panel panel-primary">
+        <!-- Modal Header -->
+        <div class="modal-header" class="card">
+          <div class="card-header bg-light mb-3" style="text-align:center;">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <div class="row">
+              <div class="col-12">
+                <h1>{{resultDetails.quiz.title}}</h1>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="c col-4">
+                <div class="notice notice-info text-left ">
+                  <strong>{{'Candidat:' | translate}}</strong>
+                  {{resultDetails.onlineInterview.application.candidate.firstName}}
+                  {{resultDetails.onlineInterview.application.candidate.lastName}}
+                </div>
+                <div class="notice notice-info text-left ">
+                  <strong>{{'Profil:' | translate}}</strong>
+                  {{resultDetails.onlineInterview.application.candidate.profil}}
+                </div>
+              </div>
+              <div class="col-4">
+                <div class="notice notice-info ">
+                  <strong>
+                    <h1>{{'Note:' | translate}}</h1>
+                  </strong>
+                  <h1> {{resultDetails.note}}% </h1>
+                </div>
+              </div>
+              <div class="col-4">
+                <div class="notice notice-info text-left">
+                  <strong>{{'Niveau:' | translate}}</strong> {{resultDetails.quiz.degree.title}}
+
+                </div>
+                <div class="notice notice-info text-left">
+                  <strong>{{'Technologie:' | translate}}</strong> {{resultDetails.quiz.technology.title}}
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-6">
+                <div class="notice notice-info text-center">
+                  <strong>{{'Date de passage:' | translate}}</strong> {{resultDetails.interviewDate}}
+                </div>
+              </div>
+
+              <div class="col-6">
+                <div class="notice notice-info text-center">
+                  <strong>{{'Durée de passage:' | translate}}</strong> {{resultDetails.duration}} minutes
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Modal Body -->
+        <div class="modal-body">
+          <ol>
+            <ng-template ngFor let-passedQuestion [ngForOf]="resultDetails.passedQuestions" let-length="index">
+              <div class="card-body">
+                <!-- Question description section -->
+                <h5 style="font-weight: bold">
+                  <li [innerHtml]="passedQuestion.description">{{passedQuestion.description}}</li>
+                </h5> <br />
+                <!-- Proposition section -->
+                <div class="row">
+                  <div class="proposition col-lg-12">
+                    <ng-template ngFor let-answeredProposition [ngForOf]="passedQuestion.answeredProposition"
+                      let-length="index">
+                      <div class="card-text">
+                        <ul>
+                          <li *ngIf="answeredProposition.checked && answeredProposition.valid">
+                            <span class="badge badge-success"> {{answeredProposition.description}}</span> &nbsp;
+                            <i class="fa fa-check-circle text-success"></i>
+                          </li>
+                          <li *ngIf="answeredProposition.checked && !answeredProposition.valid">
+                            <span class="badge badge-danger"> {{answeredProposition.description}}</span>
+                          </li>
+                          <li *ngIf="!answeredProposition.checked && answeredProposition.valid ">
+                            <span class="badge badge-light"> {{answeredProposition.description}}</span>
+                            <i class="fa fa-check-circle text-success"></i>
+                          </li>
+                          <li *ngIf="!answeredProposition.checked && !answeredProposition.valid ">
+                            <span class="badge badge-light"> {{answeredProposition.description}}</span>
+                          </li>
+                        </ul>
+                      </div>
+                    </ng-template>
+                  </div>
+                </div>
+              </div>
+              <br>
+            </ng-template>
+          </ol>
+        </div>
+        <div class="modal-footer">
+          <!-- Close button -->
+          <button type="button" id="exit-detail-quiz" class="btn btn-secondary" data-dismiss="modal">{{'Fermer' |
+            translate}}</button>
+          &nbsp;
+          <!-- Download PDF button -->
+          <button type="button" id="download-detail-quiz" class="btn btn-info" data-dismiss="modal" (click)="downloadPDF(resultDetails, resultDetails.onlineInterview.application.candidate)">{{'Télécharger'
+            | translate}}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
