@@ -1,0 +1,230 @@
+.navbar {
+  background-color: #007EB0;
+  min-height: 80px;
+}
+
+.body {
+  margin: 0px;
+  min-height: 100%;
+  width: 100%;
+  background-color: #EAEAEA;
+  position: fixed;
+}
+
+.left-part {
+  min-height: 500px;
+  min-width: 100px;
+  background-color:white;
+  -webkit-box-shadow: 0px 1px 1px 1px rgba(179,179,179,1);
+  -moz-box-shadow: 0px 1px 1px 1px rgba(179,179,179,1);
+  box-shadow: 0px 1px 1px 1px rgba(179,179,179,1);
+}
+
+.right-part {
+  background-color: white;
+  height: 300px;
+  -webkit-box-shadow: 0px 1px 1px 1px rgba(179,179,179,1);
+  -moz-box-shadow: 0px 1px 1px 1px rgba(179,179,179,1);
+  box-shadow: 0px 1px 1px 1px rgba(179,179,179,1);
+}
+
+.content {
+  padding: 15px;
+}
+.question-proposition {
+  min-height: 400px;
+}
+
+.save-button {
+  padding-top: 60px;
+}
+
+.btn-pink {
+  background-color: #FF4081;
+  color: white;
+}
+.image-timer {
+  padding-top: 20px;
+}
+
+/* to remove the . from the lsit*/
+ul { 
+  list-style-type: none; 
+}
+
+/* The check */
+.check {
+  display: block;
+  position: relative;
+  padding-left: 25px;
+  margin-bottom: 12px;
+  padding-right: 15px;
+  cursor: pointer;
+  font-size: 18px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+ }
+ 
+ /* Hide the browser's default checkbox */
+ .check input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+ }
+ 
+ /* Create a custom checkbox */
+ .checkmark {
+  position: absolute;
+  top: 3px;
+  left: 0;
+  height: 18px;
+  width: 18px;
+  background-color: #fff ;
+  border-color:#4285F4;
+  border-style:solid;
+  border-width:2px;
+ }
+ 
+ /* When the checkbox is checked, add a blue background */
+ .check input:checked ~ .checkmark {
+  background-color: #fff  ;
+ }
+ 
+ /* Create the checkmark/indicator (hidden when not checked) */
+ .checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+ }
+ 
+ /* Show the checkmark when checked */
+ .check input:checked ~ .checkmark:after {
+  display: block;
+ }
+ 
+ /* Style the checkmark/indicator */
+ .check .checkmark:after {
+  left: 5px;
+  top: 1px;
+  width: 5px;
+  height: 10px;
+  border: solid ;
+  border-color:#006dcc;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+ }
+
+
+ .btn-save-answers {
+  background: #0664CB;
+  color: white;
+  border-radius:23px;
+}
+
+.ui-steps .ui-steps-item {
+  width: 15%;
+}
+
+.ui-steps{
+  align-items: center !important;
+}
+
+
+#divScroll {
+  background: #efefef;
+  overflow: scroll;
+}
+
+/* Option button */
+.btn-option {
+  background: #007EAF;
+  border-radius:23px;
+    color: #fff;
+}
+
+
+.navbar-brand {
+  margin-left: 50px;
+  color: white;
+}
+
+.bigger { 
+  font-size:38px;
+  font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif; 
+  color: white;
+}
+
+.title-application {
+  font-size: medium;
+  color: #00B4B9;
+  font-weight: bold;
+}
+
+.quiz-title {
+  margin-left: 100px;
+  color: white;
+  font-size: xx-large;
+  font-weight: bold;
+}
+
+.logo-altran{
+  max-width: 200px;
+  height: auto;
+}
+
+/* form styling  */
+#form-container                { 
+	background:#F0F0F0;
+	margin-bottom:20px;    
+    border-radius:2px;
+    border: 1px solid #CCC; 
+}
+#form-container .page-header   {
+	background:#D0D0D0; 
+	margin:0; 
+	padding:20px; 
+    border-top-left-radius:0px; 
+    border-top-right-radius:0px; 
+}
+/* numbered buttons */
+
+#status-buttons ul              { margin-bottom: 0px; }
+
+#status-buttons a               { color:#808080; display:inline-block; font-size:12px; margin-right:10px; text-align:center; text-transform:uppercase; }
+#status-buttons a:hover         { text-decoration:none; }
+
+#status-buttons span            { color:#FFF; background:#A0A0A0; display:block; height:30px; margin:0 auto 10px; padding-top:7px; width:30px; 
+    border-radius:50%; }
+
+.trackProgress {
+  width: 100%;
+  margin-left: auto ;
+  margin-right: auto ;    
+}
+
+.trackProgress ul {
+  list-style-type: none; /*to remove bullets*/
+  text-align: center;
+  padding: 0px;
+  zoom:1;    
+  overflow: hidden;
+}
+
+.trackProgress li{
+  padding: 0px;
+  width: 120px;
+  display:inline-block;
+}
+
+.line-linkage {
+  width: 90px;
+  border: 1px solid #a0a0a0;
+  position: relative;
+  top:16px;
+  left:70px;
+  z-index:0;    
+}

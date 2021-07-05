@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Suite">
+	<test name="Test">
+		<classes>
+
+
+			<!-- Authentication -->
+			<class name="authentifier.Authentifier_succes" />
+			<class name="authentifier.Authentifier_champs_vide_echec" />
+			<class name="authentifier.Authentifier_nom_inexistant_echec" />
+			<class name="authentifier.Authentifier_mdp_incorrect_echec" />
+
+
+			<!-- Role -->
+			<class name="gerer_les_roles.Ajout_champs_vide_echec" />
+			<class name="gerer_les_roles.Ajout_nom_carac_speciaux_echec" />
+			<class name="gerer_les_roles.Ajouter_un_role_succes" />
+			<class name="gerer_les_roles.Chercher_un_role_succes" />
+			<class
+				name="gerer_les_roles.Pagination_de_la_liste_des_roles_succes" />
+			<class name="gerer_les_roles.Modif_champs_vide_echec" />
+			<class name="gerer_les_roles.Modif_nom_carac_speciaux_echec" />
+			<class name="gerer_les_roles.Modifier_un_role_succes" />
+			<class name="gerer_les_roles.Supprimer_un_role_succes" />
+			<class name="gerer_les_roles.Supp_un_role_echec" />
+
+
+			<!-- Activity -->
+			<class name="gerer_les_activites.Ajout_champs_vide_echec" />
+			<class
+				name="gerer_les_activites.Ajout_nom_carac_speciaux_echec" />
+			<class name="gerer_les_activites.Ajouter_une_activite_succes" />
+			<class name="gerer_les_activites.Chercher_une_activite_succes" />
+			<class
+				name="gerer_les_activites.Pagination_de_la_liste_des_activites_succes" />
+			<class name="gerer_les_activites.Modif_champs_vide_echec" />
+			<class
+				name="gerer_les_activites.Modif_nom_carac_speciaux_echec" />
+			<class name="gerer_les_activites.Modifier_une_activite_succes" />
+			<class name="gerer_les_activites.Supprimer_une_activite_succes" />
+			<class name="gerer_les_activites.Supp_une_activite_echec" />
+
+
+			<!-- Users -->
+			<class
+				name="gerer_les_utilisateurs.Ajout_utilisateur_vide_echec" />
+			<class
+				name="gerer_les_utilisateurs.Ajout_nom_caracteres_speciaux_echec" />
+			<class
+				name="gerer_les_utilisateurs.Ajout_prenom_caracteres_speciaux_echec" />
+			<class name="gerer_les_utilisateurs.Ajout_email_echec" />
+			<class name="gerer_les_utilisateurs.Ajout_telephone_echec" />
+			<class
+				name="gerer_les_utilisateurs.Ajouter_un_utilisateur_succes" />
+			<class
+				name="gerer_les_utilisateurs.Chercher_un_utilisateur_succes" />
+			<class
+				name="gerer_les_utilisateurs.Pagination_de_liste_des_utilisateurs_succes" />
+			<class
+				name="gerer_les_utilisateurs.Modif_utilisateur_vide_echec" />
+			<class
+				name="gerer_les_utilisateurs.Modif_nom_caracteres_speciaux_echec" />
+			<class
+				name="gerer_les_utilisateurs.Modif_prenom_caracteres_speciaux_echec" />
+			<class name="gerer_les_utilisateurs.Modif_email_echec" />
+			<class name="gerer_les_utilisateurs.Modif_telephone_echec" />
+			<class
+				name="gerer_les_utilisateurs.Modifier_un_utilisateur_succes" />
+			<class
+				name="gerer_les_utilisateurs.Supprimer_un_utilisateur_succes" />
+			<class name="gerer_les_utilisateurs.Supp_utilisateur_echec" />
+
+
+			<!-- Account -->
+			<class name="modifier_le_profil.Modif_champs_vide_echec" />
+			<class name="modifier_le_profil.Modif_email_echec" />
+			<class name="modifier_le_profil.Modif_nom_carac_speciaux_echec" />
+			<class
+				name="modifier_le_profil.Modif_prenom_carac_speciaux_echec" />
+			<class name="modifier_le_profil.Modif_profil_telephone_echec" />
+			<class name="modifier_le_profil.Modifier_le_profil_succes" />
+
+
+			<!-- Technology -->
+			<class name="gerer_les_technologies.Ajout_champs_vide_echec" />
+			<class
+				name="gerer_les_technologies.Ajout_nom_carac_speciaux_echec" />
+			<class
+				name="gerer_les_technologies.Ajouter_une_technologie_succes" />
+			<class
+				name="gerer_les_technologies.Chercher_une_technologie_succes" />
+			<class
+				name="gerer_les_technologies.Pagination_de_la_liste_des_technologies_succes" />
+			<class name="gerer_les_technologies.Modif_champs_vide_echec" />
+			<class
+				name="gerer_les_technologies.Modif_nom_carac_speciaux_echec" />
+			<class
+				name="gerer_les_technologies.Modifier_une_technologie_succes" />
+			<class
+				name="gerer_les_technologies.Supprimer_une_technologie_succes" />
+			<class name="gerer_les_technologies.Supp_une_technologie_echec" />
+
+
+			<!-- Degree -->
+			<class name="gerer_les_niveaux.Ajout_champs_vide_echec" />
+			<class name="gerer_les_niveaux.Ajout_nom_carac_speciaux_echec" />
+			<class name="gerer_les_niveaux.Ajouter_un_niveau_succes" />
+			<class name="gerer_les_niveaux.Chercher_un_niveau_succes" />
+			<class
+				name="gerer_les_niveaux.Pagination_de_la_liste_des_niveaux_succes" />
+
+			<class name="gerer_les_niveaux.Modif_champs_vide_echec" />
+			<class name="gerer_les_niveaux.Modif_nom_carac_speciaux_echec" />
+			<class name="gerer_les_niveaux.Modifier_un_niveau_succes" />
+			<class name="gerer_les_niveaux.Supprimer_un_niveau_succes" />
+			<class name="gerer_les_niveaux.Supp_un_niveau_echec" />
+
+
+			<!-- Question -->
+			<class name="gerer_les_questions.Ajout_champs_vide_echec" />
+			<class
+				name="gerer_les_questions.Ajout_question_au_moins_deux_propositions_echec" />
+			<class name="gerer_les_questions.Ajouter_une_question_succes" />
+			<class name="gerer_les_questions.Chercher_une_question_succes" />
+			<class
+				name="gerer_les_questions.Pagination_de_la_liste_des_questions_succes" />
+			<class name="gerer_les_questions.Modifier_une_question_succes" />
+			<class name="gerer_les_questions.Modif_champs_vides_echec" />
+			<class
+				name="gerer_les_questions.Modif_question_au_moins_deux_propositions_echec" />
+			<class name="gerer_les_questions.Supprimer_une_question_succes" />
+			<class name="gerer_les_questions.Supp_question_utilise_echec" />
+
+
+			<!-- Quiz -->
+			<class name="gerer_les_QCM.Ajout_champs_vide_echec" />
+			<class name="gerer_les_QCM.Ajout_nom_carac_speciaux_echec" />
+			<class name="gerer_les_QCM.Ajouter_un_QCM_succes" />
+			<class name="gerer_les_QCM.Detailler_une_question_succes" />
+			<class
+				name="gerer_les_QCM.Pagination_de_la_liste_des_questions_succes" />
+			<class name="gerer_les_QCM.Ajout_question_champs_vide_echec" />
+			<class
+				name="gerer_les_QCM.Ajouter_question_au_moins_deux_propositions_echec" />
+			<class
+				name="gerer_les_QCM.Ajouter_une_nouvelle_question_succes" />
+			<class name="gerer_les_QCM.Cloner_une_question_succes" />
+			<class name="gerer_les_QCM.Cloner_question_champs_vides_echec" />
+			<class
+				name="gerer_les_QCM.Cloner_question_au_moins_deux_propositions_echec" />
+			<class name="gerer_les_QCM.Ajout_note_champs_vide_echec" />
+			<class name="gerer_les_QCM.Modif_champs_vide_echec" />
+			<class
+				name="gerer_les_QCM.Modifier_les_informations_generales_succes" />
+			<class name="gerer_les_QCM.Modifier_un_QCM_succes" />
+			<class name="gerer_les_QCM.Generer_champs_vide_echec" />
+			<class name="gerer_les_QCM.Generer_un_QCM_succes" />
+			<class name="gerer_les_QCM.Detailler_un_QCM_succes" />
+			<class name="gerer_les_QCM.Modif_note_vide_echec" />
+			<class name="gerer_les_QCM.Chercher_un_QCM_succes" />
+			<class
+				name="gerer_les_QCM.Pagination_de_la_liste_des_qcm_succes" />
+			<class name="gerer_les_QCM.Supprimer_un_QCM_succes" />
+			<class name="gerer_les_QCM.Supp_un_QCM_echec" />
+
+
+			<!-- Candidate -->
+			<class
+				name="consulter_la_liste_des_candidats.Chercher_un_candidat_succes" />
+			<class
+				name="consulter_la_liste_des_candidats.Pagination_de_la_liste_des_candidats_succes" />
+
+
+			<!-- Interview -->
+			<class
+				name="consulter_la_liste_des_entretiens.Chercher_un_entretien_succes" />
+			<class
+				name="consulter_la_liste_des_entretiens.Pagination_de_la_liste_des_entretiens_succes" />
+
+
+			<!-- Reclamation -->
+			<class
+				name="gerer_la_liste_des_messages_des_candidats.Afficher_un_message_succes" />
+			<class
+				name="gerer_la_liste_des_messages_des_candidats.Chercher_un_message_succes" />
+			<class
+				name="gerer_la_liste_des_messages_des_candidats.Pagination_de_la_liste_des_messages_succes" />
+			<class
+				name="gerer_la_liste_des_messages_des_candidats.Supprimer_un_message_succes" />
+			<class
+				name="gerer_la_liste_des_messages_des_candidats.Supprimer_une_selection_succes" />
+
+
+			<!-- Assign -->
+			<class name="affecter_des_QCM.Affectation_vide_echec" />
+			<class
+				name="affecter_des_QCM.Affecter_des_QCM_a_des_candidats_succes" />
+			<class
+				name="affecter_des_QCM.Pagination_de_la_liste_des_affectations_succes" />
+			<class
+				name="affecter_des_QCM.Modifier_les_qcm_affectes_par_candidat_succes" />
+			<class
+				name="affecter_des_QCM.Supprimer_tous_le_qcm_affectes_par_candidat" />
+			<class
+				name="affecter_des_QCM.Supprimer_un_seul_qcm_affecte_par_candidat" />
+
+
+
+		</classes>
+	</test> <!-- Test -->
+</suite> <!-- Suite -->

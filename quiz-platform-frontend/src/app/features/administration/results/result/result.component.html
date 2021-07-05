@@ -1,0 +1,10 @@
+<!-- Title-->
+<div class="title">
+  <h3>{{'Liste des résultats des QCM' | translate}}</h3>
+</div>
+<!-- Content-->
+<div class="content">
+  <app-result-list (redirect)="resultDetails=$event"></app-result-list>
+  <!-- Details result Modal -->
+  <app-result-detail [resultDetails]="resultDetails"></app-result-detail>
+</div>

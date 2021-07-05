@@ -1,0 +1,86 @@
+<div class="sidenav">
+  <ul class="sidebar navbar-nav">
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/administration/dashboard" routerLinkActive="active-link" id="dashboard">
+        <i class="fa fa-tachometer"></i>
+        <span> {{'Tableau de bord'| translate}}</span>
+      </a>
+    </li>
+    <div class="menu-title"> {{'Candidat' | translate}}</div>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/administration/candidates" routerLinkActive="active-link" id="list-candidates">
+        <i class="fa fa-graduation-cap"></i>
+        <span> {{'Liste des candidats' | translate}}</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/administration/interviews" routerLinkActive="active-link" id="list-interviews">
+        <i class="fa fa-weixin"></i>
+        <span> {{'Liste des entretiens' | translate}}</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/administration/messages" routerLinkActive="active-link" id="candidates-messages">
+        <i class="fa fa-envelope"></i>
+        <span> {{'Messages des candidats' | translate}}</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/administration/assign-quizzes-candidates" routerLinkActive="active-link" id="assign-quizzes">
+        <i class="fa fa-expand"></i>
+        <span> {{'Affectation des QCM' | translate}}</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/administration/results" routerLinkActive="active-link" id="results">
+        <i class="fa fa-file-text"></i>
+        <span> {{'Résultats des QCM' | translate}}</span>
+      </a>
+    </li>
+    <div class="menu-title">QCM</div>
+    <li class="nav-item" *ngIf="displayQuiz === true">
+      <a class="nav-link" routerLink="/administration/quizzes" routerLinkActive="active-link" id="quizzes-management">
+        <i class="fa fa-align-justify"></i>
+        <span> {{'Gestion des QCM' | translate}}</span>
+      </a>
+    </li>
+    <li class="nav-item" *ngIf="displayQuestion === true">
+      <a class="nav-link" routerLink="/administration/questions" routerLinkActive="active-link" id="questions-management">
+        <i class="fa fa-question-circle"></i>
+        <span> {{'Gestion des questions' | translate}}</span>
+      </a>
+    </li>
+
+    <li class="nav-item" *ngIf="displayDegree === true">
+      <a class="nav-link" routerLink="/administration/degrees" routerLinkActive="active-link" id="degrees-management">
+        <i class="fa fa-sliders"></i>
+        <span> {{'Gestion des niveaux' | translate}}</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/administration/technologies" routerLinkActive="active-link" id="technologies-management">
+        <i class="fa fa-align-center"></i>
+        <span> {{'Gestion des technologies' | translate}}</span>
+      </a>
+    </li>
+    <div class="menu-title" *ngIf="testAdmin === true">Administration</div>
+    <li class="nav-item" *ngIf="testAdmin === true">
+      <a class="nav-link" routerLink="/administration/recruiters" routerLinkActive="active-link" id="users-management">
+        <i class="fa fa-users"></i>
+        <span> {{'Gestion des utilisateurs' | translate}}</span>
+      </a>
+    </li>
+    <li class="nav-item" *ngIf="testAdmin === true">
+      <a class="nav-link" routerLink="/administration/roles" routerLinkActive="active-link" id="roles-management">
+        <i class="fa fa- fa-cogs"></i>
+        <span> {{'Gestion des rôles' | translate}}</span>
+      </a>
+    </li>
+    <li class="nav-item" *ngIf="testAdmin === true">
+      <a class="nav-link" routerLink="/administration/activities" routerLinkActive="active-link" id="activities-management">
+        <i class="fa fa-building"></i>
+        <span> {{'Gestion des activités' | translate}}</span>
+      </a>
+    </li>
+  </ul>
+</div>

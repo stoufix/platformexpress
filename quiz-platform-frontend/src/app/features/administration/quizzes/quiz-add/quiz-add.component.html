@@ -1,0 +1,63 @@
+<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{'Ajouter un QCM' | translate}}</h5>
+        <button type="button" (click)="emptyObject()" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form #addQuizForm="ngForm">
+          <!-- Title field -->
+          <div class="form-group">
+            <label for="title" class="required">{{'Titre' | translate}}</label>
+            <input type="text" class="form-control" id="title-add" placeholder="" name="title" [(ngModel)]="quizToAdd.title"
+              required>
+          </div>
+          <!-- Description field -->
+          <div class="form-group">
+            <label for="description">{{'Description' | translate}}</label>
+            <input type="text" class="form-control" id="description-add" name="description" placeholder="" [(ngModel)]="quizToAdd.description">
+          </div>
+          <!-- Duration field -->
+          <div class="form-group">
+            <label for="duration" class="required">{{'Durée(min)' | translate}}</label>
+            <input type="number" min="10" class="form-control" id="duration-add" name="duration" placeholder="10"
+              [(ngModel)]="quizToAdd.duration" required>
+          </div>
+          <!-- Technology field -->
+          <div class="form-group">
+            <label for="technology" class="required">{{'Technologie' | translate}}</label>
+            <br>
+            <select class="form-control" id="technology-add" name="technology" [(ngModel)]="quizToAdd.technology.id"
+              required>
+              <option *ngFor="let technology of listTechnologies" [ngValue]="technology.id">{{ technology?.title }}</option>
+            </select>
+          </div>
+          <!-- Degree field -->
+          <div class="form-group">
+            <label for="degree" class="required">{{'Niveau' | translate}}</label>
+            <select class="form-control" id="degree-add" name="degree" [(ngModel)]="quizToAdd.degree.id" required>
+              <option *ngFor="let degree of listDegrees" [ngValue]="degree.id">{{ degree.title }}</option>
+            </select>
+          </div>
+          <!-- Visibility for other users field -->
+          <div class="form-check">
+            <input type="checkbox" class="form-check-input active" id="visibility-add" name="visibility" [(ngModel)]="sharedValue"
+              (change)="checkShared()" checked>
+            <label class="form-check-label" for="exampleCheck1">{{'Visible par tous les utilisateurs' | translate}}</label>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <!-- Close button -->
+        <button type="button" id="exit-add-quiz" class="btn btn-secondary" (click)="emptyObject()" data-dismiss="modal">{{'Fermer' | translate}}</button>
+        &nbsp;
+        <!-- Add button -->
+        <button type="button" id="submit-add-quiz" class="btn btn-primary" (click)="createQuiz()" data-dismiss="modal"
+          [disabled]="!addQuizForm.valid">{{'Enregistrer' | translate}}</button>
+      </div>
+    </div>
+  </div>
+</div>

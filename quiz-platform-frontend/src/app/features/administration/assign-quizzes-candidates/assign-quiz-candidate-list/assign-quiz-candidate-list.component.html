@@ -1,0 +1,139 @@
+<div class="row">
+  <!-- Number of elements select form -->
+  <div class=" col-md-8">
+    <div class="btn-group">
+      <span class="label label-default">{{'Afficher' | translate}}</span>&nbsp;
+      <button type="button" id="show-items-list-btn" class="btn dropdown-toggle btn-dropdown" data-toggle="dropdown"
+        aria-haspopup="true" aria-expanded="false">
+        {{item}}
+      </button>
+      <div class="dropdown-menu">
+        <a class="dropdown-item" id="five-items" (click)="getItems(5)">5</a>
+        <a class="dropdown-item" id="ten-items" (click)="getItems(10)">10</a>
+        <a class="dropdown-item" id="twenty-items" (click)="getItems(20)">20</a>
+        <a class="dropdown-item" id="fifty-items" (click)="getItems(50)">50</a>
+      </div>
+      &nbsp;
+      <span class="label label-default">{{'éléments' | translate}}</span>
+    </div>
+  </div>
+  <!-- Search form -->
+  <div class=" col-md-4 text-right">
+    <div class="input-group search">
+      <input type="text" id="search-assign-quiz" class="form-control search" placeholder="{{'Recherche...' | translate}}"
+        [(ngModel)]="searchInput" (input)="onSearch($event.target.value)">
+    </div>
+  </div>
+</div>
+<!-- Assigned quiz candidate list Table -->
+<div class="table-responsive-lg">
+  <table class="table table-bordered table-hover">
+    <thead>
+      <tr>
+        <th>
+          <div class="row">
+            <div class="col-3">
+              {{'Nom de candidat' | translate}}
+            </div>
+            <div class="col-3">
+              {{'Email' | translate}}
+            </div>
+            <div class="col-2">
+              {{'Téléphone' | translate}}
+            </div>
+            <div class="col-3">
+              {{'Adresse' | translate}}
+            </div>
+            <div class="col-1">
+              {{'Actions' | translate}}
+            </div>
+          </div>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let onlineInterview of listOnlineInterview | paginate: { itemsPerPage: item, currentPage: p, totalItems: total }">
+        <td>
+          <div class="row">
+            <div class="col-3">
+              <a class="btn btn-link panel-title" id="show-quizzes-list-btn" data-toggle="collapse" attr.data-target='{{"#id" + onlineInterview.id}}'
+                aria-expanded="true" aria-controls="collapseOne">
+                <i class="fa fa-chevron-right"></i> </a>
+              <a class="btn btn-link panel-title" data-toggle="collapse" attr.data-target='{{"#id" + onlineInterview.id}}'
+                aria-expanded="true" aria-controls="collapseOne">
+                {{onlineInterview.application.candidate.firstName}} {{onlineInterview.application.candidate.lastName }}
+              </a>
+            </div>
+            <div class="col-3">
+              <span class="mail-link" (click)="mailTo(onlineInterview.application.candidate.email)">{{onlineInterview.application.candidate.email}}</span>
+            </div>
+            <div class="col-2">
+              {{onlineInterview.application.candidate.phoneNumber}}
+            </div>
+            <div class="col-3">
+              {{onlineInterview.application.candidate.address}}
+            </div>
+            <div class="col-1">
+              <button class="btn btn-info btn-update" title="Ajouter des QCM à ce candidat" data-toggle="modal"
+                data-target="#update-assigned-quizzes-modal" (click)="openEditModal(onlineInterview)">
+                <i class="fa fa-plus" aria-hidden="true"></i>
+              </button>
+              &nbsp;
+              <button class="btn btn-danger btn-delete" title="Supprimer tous les QCM de ce candidat" (click)="deleteAssignedQuizzes(onlineInterview.id,onlineInterview)">
+                <i class="fa fa-remove"></i></button>
+            </div>
+          </div>
+          <div id='{{"id" + onlineInterview.id}}' class="collapse" aria-labelledby="collapseOne">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-12">
+                  <div class="card" tyle="width: 18rem; ">
+                    <ul *ngFor="let quizzes of onlineInterview.assignedQuizzes" class="list-group list-group-flush">
+                      <li class="list-group-item">
+                        <div class="row">
+                          <div class="col-3">
+                            <label class="info-table-title">{{'QCM:' | translate}}</label> {{quizzes.quiz.title}}
+                          </div>
+                          <div class="col-4">
+                            <label class="info-table-title">{{'Date de passage:' | translate}}</label>
+                            {{quizzes.passingAt}}
+                          </div>
+                          <div class="col-3">
+                            <label class="info-table-title">{{'Affecté par:' | translate}}</label>
+                            {{quizzes.assignedBy.firstName}}
+                            {{quizzes.assignedBy.lastName}}
+                          </div>
+                          <div class="col-2">
+                            <button class="icon-button float-right" title="Supprimer ce QCM de la liste de candidat"
+                              (click)="deleteAssignedQuiz(quizzes.id)">
+                              <i class="fa fa-times fa-lg" aria-hidden="true" [ngStyle]="{'color':'red'}"></i>
+                            </button>
+                          </div>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <!-- No data in table message-->
+  <div *ngIf="listOnlineInterview?.length==0">
+    <div class="nodata-box">
+      <div class="nodata-text" id="no-data-available">{{'Aucune donnée trouvée.' | translate}}</div>
+    </div>
+  </div>
+  <!-- Pagination-->
+  <div class="clearfix">
+    <div class="hint-text">{{'Total' | translate}}: <b>{{total}}</b> {{'éléments' | translate}}</div>
+    <div class="pagination justify-content-end">
+      <nav class="Page navigation example">
+        <pagination-controls (pageChange)="p=$event" (click)="onSelect(p)" previousLabel="{{'Précédente' | translate}}"
+          nextLabel="{{'Suivante' | translate}}"></pagination-controls>
+      </nav>
+    </div>
+  </div>

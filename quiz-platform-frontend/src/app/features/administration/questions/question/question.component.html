@@ -1,0 +1,60 @@
+<!-- Title -->
+<div class="title">
+  <div class="row">
+    <div class="col-lg-6">
+      <h3>{{'Gestion des questions' | translate}}</h3>
+    </div>
+    <!-- Add Question Button-->
+    <div class="col-lg-6 text-right">
+      <button type="button" id="add-question-btn" class="btn btn-primary btn-add" data-toggle="modal" data-target="#addModal"
+        title="Ajouter une nouvelle question">
+        <i class="fa fa-plus-circle fa-lg"></i> {{'Nouvelle question' | translate}} 
+      </button>
+    </div>
+  </div>
+</div>
+<!-- Content -->
+<div class="content">
+  <!-- Questions Table -->
+  <div class="row" class="col-lg-12">
+    <div class="card z-depth-3">
+      <ul class="nav nav-pills nav-pills-primary nav-justified">
+        <li class="nav-item">
+          <a href="javascript:void();" data-target="#allQuestions" data-toggle="pill" class="nav-link active show"><i
+              class="icon-user"></i> <span class="hidden-xs">{{'Toutes les questions' | translate}}</span></a>
+        </li>
+        <li class="nav-item">
+          <a id="myQuestion" href="javascript:void();" data-target="#myQuestions" data-toggle="pill" class="nav-link"><i
+              class="icon-envelope-open"></i>
+            <span class="hidden-xs">{{'Mes questions' | translate}}</span></a>
+        </li>
+        <li class="nav-item">
+          <a href="javascript:void();" data-target="#favoris" data-toggle="pill" class="nav-link"><i class="icon-note"></i>
+            <span class="hidden-xs">{{'Favoris' | translate}}</span></a>
+        </li>
+      </ul>
+      <div class="tab-content p-3">
+        <!--Questions list-->
+        <div class="tab-pane active show" id="allQuestions">
+          <app-question-list (redirectToDetailsModal)="detailsQuestion=$event" (reloadEvent)="myQuestionsList.reloadData()"
+            (redirectToEditModal)="editQuestion=$event" #questionList></app-question-list>
+        </div>
+        <!--My Questions list-->
+        <div class="tab-pane" id="myQuestions">
+          <app-question-list-by-user (redirectToDetailsModal)="detailsQuestion=$event" (redirectToEditModal)="editQuestion=$event"
+            (reloadEvent)="questionList.reloadData()" #myQuestionsList></app-question-list-by-user>
+        </div>
+        <!--Favorit Questions list -->
+        <div class="tab-pane" id="favoris">
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Add Question Modal -->
+  <app-question-add (reloadEvent)="questionList.reloadData()" (reloadEvent)="myQuestionsList.reloadData()"></app-question-add>
+  <!-- Question detail Modal  -->
+  <app-question-detail [questionDetails]="detailsQuestion"></app-question-detail>
+  <!-- Question edit Modal  -->
+  <app-question-update [questionToEdit]="editQuestion" (reloadEvent)="questionList.reloadData()" (reloadEvent)="myQuestionsList.reloadData()"></app-question-update>
+
+</div>

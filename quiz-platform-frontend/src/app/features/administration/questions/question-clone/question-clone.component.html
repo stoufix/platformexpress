@@ -1,0 +1,125 @@
+<div class="modal fade" id="clonemodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{'Cloner cette question' | translate}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form #cloneQuestionForm="ngForm">
+          <!-- Description field -->
+          <div class="form-group">
+            <label for="description" class="required">{{'Description' | translate}}</label>
+            <!-- Descritption warning -->
+            <!-- <div class="alert alert-warning">
+              <div align-text="center">{{'Dans le cas de l'ajout d'une image il faut écrire la question retourner à la ligne puis l'ajouter' | translate}}</div>
+            </div> -->
+            <p-editor [(ngModel)]="questionToClone.description" name="description" [style]="{'height':'320px'}">
+            </p-editor>
+          </div>
+          <!-- Note field -->
+          <div class="form-group">
+            <label for="title" class="required">{{'Note:' | translate}}</label>
+            <input id="mark-clone-question" type="number" pattern="[1-9][0-9]?" class="form-control" name="Note"
+              [(ngModel)]="quizQuestionToClone.mark" required>
+          </div>
+          <div>
+            <!-- Visibility field -->
+            <div class="form-check">
+              <input type="checkbox" class="form-check-input active" id="visibility" name="visibility" [(ngModel)]="visibilityValue"
+                (change)="checkVisibility()" checked>
+              <label class="form-check-label" for="exampleCheck1">{{'Visible par tous les utilisateurs' | translate}}</label>
+            </div>
+            <br>
+            <!-- Propostion form -->
+            <form #clonePropositionForm="ngForm">
+              <div class="form-group">
+                <label for="Propositions" class="required">{{'Propositions' | translate}}</label>
+                <!-- Number of proposition alert -->
+                <div class="alert alert-danger" *ngIf="questionToClone.propositions.length < 2" role="alert">
+                  <div align-text="center">{{'Il faut ajouter plus que deux propositions !' | translate}}</div>
+                </div>
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <div class="input-group-text">
+                      <!-- Proposition validity field field -->z
+                      <input type="checkbox" aria-label="Checkbox for following text input" id="clone-question-valid"
+                        name="valid" [(ngModel)]="propositionClone.valid">
+                    </div>
+                  </div>
+                  <!-- Proposition descriptiont field -->
+                  <textarea id="clone-question-proposition-add" type="textarea" class="form-control" name="proposition description"
+                    [(ngModel)]="propositionClone.description" required></textarea>
+                  &nbsp;
+                  <!-- Add proposition button -->
+                  <button id="clone-question-add-proposition-btn" type="button" class="btn btn-secondary" data-toggle="modal"
+                    [disabled]="!clonePropositionForm.valid" (click)="addPropositionClone(propositionClone.title,propositionClone.description,propositionClone.valid)">
+                    <i class="fa fa-plus"></i>
+                  </button>
+                </div>
+                <div class="data">
+                  <br>
+                  <!-- Proposition list section -->
+                  <ul class="list-unstyled">
+                    <li *ngFor="let proposition of questionToClone.propositions">
+                      <div class="row">
+                        <div class="col-1">
+                          <td *ngIf="proposition.valid === true"> <i class="fa fa-check-square-o" aria-hidden="true"
+                              [ngStyle]="{'color':'green'}"></i></td>
+                          <td *ngIf="proposition.valid === false"> <i class="fa fa-square-o" aria-hidden="false"
+                              [ngStyle]="{'color':'red'}"></i></td>
+                        </div>
+                        <div class="col-9">
+                          <td><span *ngIf="!proposition.editMode" id="description" name="description">{{proposition.description}}</span></td>
+                          <form *ngIf="proposition.editMode">
+                            <div class="input-group mb-3">
+
+                              <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                  <input type="checkbox" aria-label="Checkbox for following text input" id="valid" name="valid"
+                                    [(ngModel)]="proposition.valid">
+                                </div>
+                              </div>
+                              <input type="text" class="form-control" id="description" name="description" *ngIf="proposition.editMode"
+                                [(ngModel)]="proposition.description">
+                              &nbsp;
+                              <button type="button" class="btn btn-outline-secondary" data-toggle="modal" (click)="editPropositionCloneQuestion(proposition)">
+                                <i class="fa fa-check"></i>
+                              </button>
+                            </div>
+                          </form>
+                        </div>
+                        <div class="col-2">
+                          <td><button type="button" class="icon-button" (click)="proposition.editMode=true" data-toggle="tooltip">
+                              <i class="fa fa-pencil fa-lg" aria-hidden="true"></i>
+                            </button>
+                          </td>
+                          <td><button type="button" class="icon-button" (click)="deletePropositionsCloneQuestion(proposition)"
+                              data-toggle="tooltip">
+                              <i class="fa fa-times fa-lg" aria-hidden="true" [ngStyle]="{'color':'red'}"></i>
+                            </button>
+                          </td>
+                        </div>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </form>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <!-- Close button -->
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="emptyObjectClone()">{{'Fermer' | translate}}</button>
+        &nbsp;
+        <!-- Clone button -->
+        <button id="submit-clone-question" type="button" class="btn btn-primary" data-dismiss="modal" (click)="cloneQuestion()"
+          [disabled]="!cloneQuestionForm.valid">{{'Enregistrer' | translate}}</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--end clone modal -->

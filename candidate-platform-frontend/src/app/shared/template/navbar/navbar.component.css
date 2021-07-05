@@ -1,0 +1,39 @@
+.navbar {
+  background: #007EB0;
+  min-height: 80px;
+}
+
+.navbar-brand {
+  margin-left: 50px;
+  color: white;
+}
+
+.bigger { 
+  font-size:38px;
+  font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif; 
+  color: white;
+}
+
+.title-application {
+  font-size: medium;
+  color: #00B4B9;
+  font-weight: bold;
+}
+
+.quiz-title {
+  margin-left: 100px;
+  color: white;
+  font-size: xx-large;
+  font-weight: bold;
+}
+
+.logo-altran{
+  max-width: 200px;
+  height: auto;
+}
+
+.btn-sign-out {
+  background: #01184A;
+  color: white;
+  border-radius:23px;
+}

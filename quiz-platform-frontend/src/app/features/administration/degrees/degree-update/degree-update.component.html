@@ -1,0 +1,35 @@
+<div class="modal fade" id="editmodal" tabindex="-1" role="dialog" aria-labelledby="editModal" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel" translate>{{'Modifier ce niveau' | translate}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form #updateDegreeForm="ngForm">
+          <!-- Title field -->
+          <div class="form-group">
+            <label for="title" class="required" translate>{{'Titre' | translate}}</label>
+            <input type="text" class="form-control" id="name-update" name="title" pattern="[a-zA-Z]{1}[a-z,A-Z,' ',é,è,ê,ù,û,ç,à,â,ô]{1,}"
+              [(ngModel)]="degreeToEdit.title" required>
+          </div>
+          <!-- Description field -->
+          <div class="form-group">
+            <label for="description" translate>{{'Description' | translate}}</label>
+            <input type="text" class="form-control" id="description-update" name="description" [(ngModel)]="degreeToEdit.description">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <!-- Close button -->
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" translate>{{'Fermer' | translate}}</button>
+        &nbsp;
+        <!-- Update button -->
+        <button type="button" id="submit-update-degree" class="btn btn-primary" data-dismiss="modal" (click)="updateDegrees()"
+          [disabled]="!updateDegreeForm.valid" translate>{{'Enregistrer' | translate}}</button>
+      </div>
+    </div>
+  </div>
+</div>

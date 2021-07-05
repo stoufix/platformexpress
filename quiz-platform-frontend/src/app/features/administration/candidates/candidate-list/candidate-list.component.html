@@ -1,0 +1,113 @@
+<div class="row">
+  <!-- Number of elements select form -->
+  <div class=" col-md-8">
+    <div class="btn-group">
+      <span class="label label-default">{{'Afficher' | translate}}</span>&nbsp;
+      <button type="button" id="show-items-list-btn" class="btn dropdown-toggle btn-dropdown" data-toggle="dropdown"
+        aria-haspopup="true" aria-expanded="false">
+        {{item}}
+      </button>
+      <div class="dropdown-menu">
+        <a class="dropdown-item" id="five-items" (click)="getItems(5)">5</a>
+        <a class="dropdown-item" id="ten-items" (click)="getItems(10)">10</a>
+        <a class="dropdown-item" id="twenty-items" (click)="getItems(20)">20</a>
+        <a class="dropdown-item" id="fifty-items" (click)="getItems(50)">50</a>
+      </div>
+      &nbsp;
+      <span class="label label-default">{{'éléments' | translate}}</span>
+    </div>
+  </div>
+  <!-- Search form -->
+  <div class=" col-md-4 text-right">
+    <div class="input-group search">
+      <input type="text" id="search-candidate" class="form-control search" placeholder="{{'Recherche...' | translate}}"
+        [(ngModel)]="searchInput" (input)="onSearch($event.target.value)">
+    </div>
+  </div>
+</div>
+<!-- Activities list Table -->
+<div class="table-responsive-lg">
+  <table class="table table-bordered table-striped table-hover">
+    <thead>
+      <tr>
+        <th style="width: 13%;">{{'Prénom' | translate}}</th>
+        <th style="width: 13%;">{{'Nom' | translate}}</th>
+        <th style="width: 15%;">{{'Email' | translate}}</th>
+        <th style="width: 10%;">{{'Téléphone' | translate}}</th>
+        <th style="width: 25%;">{{'Adresse' | translate}}</th>
+        <th style="width: 6%;" class="text-center">{{'Statut' | translate}}</th>
+        <th style="width: 10%;" class="text-center">{{'Compte' | translate}}</th>
+        <th style="width: 8%;" class="text-center">{{'Actions' | translate}}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let candidate of listCandidates | paginate: { itemsPerPage: item, currentPage: p, totalItems: total }">
+        <td>{{candidate.firstName}}</td>
+        <td>{{candidate.lastName}}</td>
+        <td><span class="mail-link" (click)="mailTo(candidate.email)">{{candidate.email}}</span></td>
+        <td>{{candidate.phoneNumber}}</td>
+        <td>{{candidate.address}}</td>
+        <td class="text-center">
+          <div *ngIf="candidate.status == 'initialized'">
+            <span class="badge badge-primary">{{'Nouveau' | translate}}
+            </span>
+          </div>
+          <div *ngIf="candidate.status == 'inProgress'">
+            <span class="badge badge-warning">{{'En cours' | translate}}
+            </span>
+          </div>
+          <div *ngIf="candidate.status == 'Refusé'">
+            <span class="badge badge-danger">{{candidate.status}}
+            </span>
+          </div>
+          <div *ngIf="candidate.status == 'recruited'">
+            <span class="badge badge-success">{{'Recruté' | translate}}
+            </span>
+          </div>
+        </td>
+        <td>
+          <div *ngIf="candidate.activated == true" class="text-center">
+            <span class="badge badge-success">{{'Activé' | translate}}
+            </span>
+            &nbsp;&nbsp;
+            <label class="switch" *ngIf="candidate.activated == true">
+              <input type="checkbox" checked (click)="changeStateUserAccount(candidate.id,candidate.username)">
+              <span class="slider round">
+              </span>
+            </label>
+          </div>
+          <div *ngIf="candidate.activated !== true" class="text-center">
+            <span class="badge badge-secondary">{{'Désactivé' | translate}}
+            </span>
+            &nbsp;&nbsp;
+            <label class="switch" *ngIf="candidate.activated !== true">
+              <input type="checkbox" (click)="changeStateUserAccount(candidate.id,candidate.username)">
+              <span class="slider round">
+              </span>
+            </label>
+          </div>
+        <td class="text-center">
+          <button type="button" class="btn btn-info btn-detail" title="Afficher les détails de ce candidat" (click)="openDetails(candidate.id)"><i
+              class="fa fa-align-justify"></i></button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <!-- No data in table message-->
+  <div *ngIf="listCandidates?.length==0">
+    <div class="nodata-box">
+      <div class="nodata-text" id="no-data-available">{{'Statut' | translate}}Aucune donnée trouvée.</div>
+    </div>
+  </div>
+  <!-- Pagination-->
+  <div class="clearfix">
+    <div class="hint-text">{{'Total' | translate}}: <b>{{total}}</b> {{'éléments' | translate}}</div>
+    <div class="pagination justify-content-end">
+      <nav class="Page navigation example">
+        <pagination-controls (pageChange)="p=$event" (click)="onSelect(p)" previousLabel="{{'Précédente' | translate}}"
+          nextLabel="{{'Suivante' | translate}}"></pagination-controls>
+      </nav>
+    </div>
+  </div>
+
+</div>
