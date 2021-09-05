@@ -7,15 +7,22 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
+/**
+ * Represents the main of the application
+ * 
+ Maha.BSaid
+ * @version 1.0
+ */
 @SpringBootApplication
 @EntityScan("com.express.model")
 @EnableJpaRepositories("com.express.repository")
-//@ComponentScan(basepackages = "com.express")
+@ComponentScan(basePackages = "com.express")
 @EnableJpaAuditing
-public class CandidatePlatformBackendApplication {
+public class QuizPlatformBackendApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(CandidatePlatformBackendApplication.class, args);
+		SpringApplication.run(QuizPlatformBackendApplication.class, args);
+
 	}
 
 }
