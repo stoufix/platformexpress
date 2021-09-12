@@ -1,4 +1,4 @@
-package com.altran.service.impl;
+package com.express.service.impl;
 
 import static org.junit.Assert.assertNotNull;
 
@@ -17,15 +17,15 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.altran.model.Candidate;
-import com.altran.repository.CandidateRepository;
-import com.altran.run.QuizPlatformBackendApplication;
-import com.altran.service.CandidateService;
+import com.express.model.Candidate;
+import com.express.repository.CandidateRepository;
+import com.express.run.QuizPlatformBackendApplication;
+import com.express.service.CandidateService;
 
 /**
  * Represents the test of candidate service
  * 
- * @author Oumaima.Meskini
+ Oumaima.Meskini
  * @version 1.0
  */
 
