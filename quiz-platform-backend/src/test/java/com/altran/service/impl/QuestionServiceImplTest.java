@@ -1,4 +1,4 @@
-package com.altran.service.impl;
+package com.express.service.impl;
 
 import static org.junit.Assert.assertNotNull;
 
@@ -24,24 +24,24 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.altran.model.Question;
-import com.altran.model.Technology;
-import com.altran.model.User;
-import com.altran.model.Degree;
-import com.altran.model.Proposition;
-import com.altran.repository.QuestionRepository;
-import com.altran.run.QuizPlatformBackendApplication;
-import com.altran.service.DegreeService;
-import com.altran.service.PropositionService;
-import com.altran.service.QuestionService;
-import com.altran.service.TechnologyService;
-import com.altran.service.UserService;
+import com.express.model.Question;
+import com.express.model.Technology;
+import com.express.model.User;
+import com.express.model.Degree;
+import com.express.model.Proposition;
+import com.express.repository.QuestionRepository;
+import com.express.run.QuizPlatformBackendApplication;
+import com.express.service.DegreeService;
+import com.express.service.PropositionService;
+import com.express.service.QuestionService;
+import com.express.service.TechnologyService;
+import com.express.service.UserService;
 
 
 /**
  * Represents the test of question service
  * 
- * @author Oumaima.Meskini
+ Oumaima.Meskini
  * @version 1.0
  */
 

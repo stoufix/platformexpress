@@ -1,4 +1,4 @@
-package com.altran.service.impl;
+package com.express.service.impl;
 
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.times;
@@ -18,16 +18,16 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.altran.model.QuizQuestion;
-import com.altran.model.QuizQuestionId;
-import com.altran.repository.QuizQuestionRepository;
-import com.altran.run.QuizPlatformBackendApplication;
-import com.altran.service.QuizQuestionService;
+import com.express.model.QuizQuestion;
+import com.express.model.QuizQuestionId;
+import com.express.repository.QuizQuestionRepository;
+import com.express.run.QuizPlatformBackendApplication;
+import com.express.service.QuizQuestionService;
 
 /**
  * Represents the test of quiz_question service
  * 
- * @author Oumaima.Meskini
+ Oumaima.Meskini
  * @version 1.0
  */
 @RunWith(SpringRunner.class)
