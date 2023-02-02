@@ -15,12 +15,6 @@ import com.express.model.OnlineInterviewQuizResult;
 import com.express.repository.OnlineInterviewRepository;
 import com.express.service.OnlineInterviewService;
 
-/**
- * Represents implementation of onLine interview service
- * 
- * @author Moez.Barkia
- * @version 1.0
- */
 @Service
 public class OnlineInterviewServiceImpl implements OnlineInterviewService {
 
