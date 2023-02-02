@@ -7,12 +7,6 @@ import com.express.model.PassedQuestion;
 import com.express.repository.PassedQuestionRepository;
 import com.express.service.PassedQuestionService;
 
-/**
- * Represents implementation of passed question service
- * 
- * @author Hasna.fattouch
- * @version 1.0
- */
 @Service
 public class PassedQuestionServiceImpl implements PassedQuestionService {
 
