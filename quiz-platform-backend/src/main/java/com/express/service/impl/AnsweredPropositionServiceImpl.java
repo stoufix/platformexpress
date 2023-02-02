@@ -11,12 +11,6 @@ import com.express.repository.AnsweredPropositionRepository;
 import com.express.service.AnsweredPropositionService;
 import static com.express.util.Constants.NO_ENTITY_DB;
 
-/**
- * Represents implementation of AnsweredPropositionS service
- * 
- Hasna.fattouch
- * @version 1.0
- */
 @Service
 public class AnsweredPropositionServiceImpl implements AnsweredPropositionService {
 
