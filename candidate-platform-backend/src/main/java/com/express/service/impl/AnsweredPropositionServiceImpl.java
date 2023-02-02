@@ -10,12 +10,7 @@ import com.express.repository.AnsweredPropositionRepository;
 
 import com.express.service.AnsweredPropositionService;
 
-/**
- * Represents serviceImpl of AnsweredPropositionServiceImpl
- * 
- * @author Hasna.fattouch
- * @version 1.0
- */
+
 @Service
 public class AnsweredPropositionServiceImpl implements AnsweredPropositionService {
 
